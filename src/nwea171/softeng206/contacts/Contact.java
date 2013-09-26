@@ -1,6 +1,9 @@
 package nwea171.softeng206.contacts;
 
-public class Contact {
+import java.io.Serializable;
+
+@SuppressWarnings("serial") // To suppress complier warnings
+public class Contact implements Serializable {
 	
 	/**
 	 * Class to represent a single contact.
@@ -10,6 +13,7 @@ public class Contact {
 	
 	private String firstName;
 	private String surname;
+	private String dateOfBirth;
 	private String mobileNumber;
 	private String homeNumber;
 	private String workNumber;
@@ -18,7 +22,16 @@ public class Contact {
 	private String notes;
 	
 	public Contact() {
-		// No implementation as of yet.
+		this.firstName = "Nicholas";
+		this.surname = "Weatherburn";
+		this.dateOfBirth = "23/07/1992";
+		this.mobileNumber = "02" + (int) (Math.random()*90000000+10000000);
+		this.homeNumber = "091111111";
+		this.workNumber = "092222222";
+		this.emailAddress =  "nwea171@aucklanduni.ac.nz";
+		this.address = "Example address";
+		this.notes = "Example note";
+				
 	}
 	
 	
@@ -27,43 +40,39 @@ public class Contact {
 	 */
 	
 	public String getFirstName() {
-		//return firstName;
-		return "Nicholas";
+		return firstName;
 	}
 
 	public String getSurname() {
-		//return surname;
-		return "Weatherburn";
+		return surname;
+	}
+	
+	public String getDateOfBirth() {
+		return dateOfBirth;
 	}
 
 	public String getMobileNumber() {
-		//return mobileNumber;
-		return "02" + (int) (Math.random()*90000000+10000000);
+		return mobileNumber;
 	}
 
 	public String getHomeNumber() {
-		//return homeNumber;
-		return "091111111";
+		return homeNumber;
 	}
 
 	public String getWorkNumber() {
-		//return workNumber;
-		return "092222222";
+		return workNumber;
 	}
 
 	public String getEmailAddress() {
-		//return emailAddress;
-		return "nwea171@aucklanduni.ac.nz";
+		return emailAddress;
 	}
 
 	public String getAddress() {
-		//return address;
-		return "Example address";
+		return address;
 	}
 
 	public String getNotes() {
-		//return notes;
-		return "Example note";
+		return notes;
 	}
 
 }

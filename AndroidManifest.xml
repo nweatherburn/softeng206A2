@@ -22,6 +22,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="nwea171.softeng206.contacts.ContactViewActivity"
+            android:label="@string/title_activity_contact_view" >
+        </activity>
+        <activity
+            android:name="nwea171.softeng206.contacts.EditContactActivity"
+            android:label="@string/title_activity_edit_contact" >
+        </activity>
     </application>
 
 </manifest>

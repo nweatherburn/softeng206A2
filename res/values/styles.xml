@@ -16,5 +16,12 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
+    
+    <style name="HorizontalRule" >
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">0.2dp</item>
+        <item name="android:background">#000000</item>
+        <item name="android:visibility">visible</item>
+    </style>
 
 </resources>

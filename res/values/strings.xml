@@ -4,5 +4,16 @@
     <string name="app_name">Contacts</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_contact_view">ContactViewActivity</string>
+    <string name="first_name_prompt">First Name</string>
+    <string name="surname_prompt">Surname</string>
+    <string name="date_of_birth_prompt">D.O.B.</string>
+    <string name="mobile_number_prompt">Mobile</string>
+    <string name="home_number_prompt">Home</string>
+    <string name="work_number_prompt">Work</string>
+    <string name="email_address_prompt">Email</string>
+    <string name="address_prompt">Address</string>
+    <string name="notes_prompt">Notes</string>
+    <string name="title_activity_edit_contact">EditContactActivity</string>
 
 </resources>
