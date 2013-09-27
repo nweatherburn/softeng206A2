@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:paddingBottom="8dp"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:paddingTop="8dp" >
+
+    <ImageView
+        android:id="@+id/contact_image"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/default_contact_photo" />
+       
+    <EditText
+        android:id="@+id/contact_first_name"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@id/contact_image"
+        android:hint="@string/first_name_prompt"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/contact_surname"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/contact_first_name"
+        android:layout_toLeftOf="@id/contact_image"
+        android:inputType="textPersonName"
+        android:text="@string/surname_prompt" />
+
+    <EditText
+        android:id="@+id/contact_date_of_birth"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/contact_image"
+        android:layout_below="@id/contact_surname"
+        android:inputType="date"
+        android:text="@string/date_of_birth_prompt" />
+
+    <EditText
+        android:id="@+id/contact_mobile_number"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/contact_image"
+        android:layout_below="@id/contact_date_of_birth"
+        android:inputType="phone"
+        android:text="@string/mobile_number_prompt" />
+
+    <EditText
+        android:id="@+id/contact_home_number"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/contact_image"
+        android:layout_below="@id/contact_mobile_number"
+        android:inputType="phone"
+        android:text="@string/home_number_prompt" />
+
+    <EditText
+        android:id="@+id/contact_work_number"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/contact_image"
+        android:layout_below="@id/contact_home_number"
+        android:inputType="phone"
+        android:text="@string/work_number_prompt" />
+
+    <EditText
+        android:id="@+id/contact_email"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/contact_image"
+        android:layout_below="@id/contact_work_number"
+        android:inputType="text"
+        android:text="@string/email_address_prompt" />
+
+    <EditText
+        android:id="@+id/contact_address"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/contact_image"
+        android:layout_below="@id/contact_email"
+        android:inputType="text"
+        android:text="@string/address_prompt" />
+
+    <EditText
+        android:id="@+id/contact_notes"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/contact_image"
+        android:layout_below="@id/contact_address"
+        android:inputType="textAutoCorrect"
+        android:text="@string/notes_prompt" />
+
+    <LinearLayout
+        android:paddingTop="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/contact_image"
+        android:layout_below="@id/contact_notes" >
+
+        <Button
+            android:id="@+id/save_contact"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#00B200"
+            android:text="@string/save_contact"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/cancel_add_contact"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#B20000"
+            android:text="@string/cancel_add"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
+
+</RelativeLayout>
