@@ -2,7 +2,10 @@ package nwea171.softeng206.contacts;
 
 import java.util.ArrayList;
 
-import nwea171.softeng206.contacts.swipetodismiss.SwipeDismissListViewTouchListener;
+import de.timroes.swipetodismiss.SwipeDismissList;
+import de.timroes.swipetodismiss.SwipeDismissList.SwipeDirection;
+import de.timroes.swipetodismiss.SwipeDismissList.UndoMode;
+import de.timroes.swipetodismiss.SwipeDismissList.Undoable;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -14,6 +17,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -24,9 +28,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class ContactListActivity extends Activity {
+	
+	public static final String CONTACT_CLICKED = "Contact Clicked";
 
-	ListView contactListView;
-	ListAdapter listAdapter;
+	ListView contactListView;	// ListView, will display contacts
+	ContactListAdapter listAdapter;	// List Adapter
 
 	ArrayList<Contact> contacts = new ArrayList<Contact>();
 
@@ -36,10 +42,34 @@ public class ContactListActivity extends Activity {
 		setContentView(R.layout.activity_contact_list);
 
 		contactListView = (ListView) findViewById(R.id.contact_listview);
+		SwipeDismissList.OnDismissCallback callback = new SwipeDismissList.OnDismissCallback() {
+		    public Undoable onDismiss(AbsListView listView, final int position) {
+		        // Delete the item from your adapter (sample code):
+		        final Contact itemToDelete = listAdapter.getItem(position);
+		        listAdapter.remove(itemToDelete);
+		        return  new SwipeDismissList.Undoable() {
+		        	@Override
+		            public void undo() {
+		                // Return the item at its previous position again
+		                listAdapter.insert(itemToDelete, position);
+		            }
+		        	
+		        	@Override
+		        	public String getTitle() {
+		        		String undoMessage = itemToDelete.getFirstName() + " " + itemToDelete.getSurname() + " deleted.";
+		        		return undoMessage;
+		        	}
+		        	@Override
+		        	public void discard() {
+		        		// TODO
+		        	}
+		        };
+		    }
+		};
+		UndoMode mode = SwipeDismissList.UndoMode.SINGLE_UNDO;
+		SwipeDismissList swipeList = new SwipeDismissList(contactListView, callback, mode);
+		swipeList.setSwipeDirection(SwipeDirection.START);
 		setupListView();
-
-
-
 	}
 
 	// Instantiates the values in the list view.
@@ -51,45 +81,19 @@ public class ContactListActivity extends Activity {
 
 		// Adds onItemCickListener to the list of contacts
 		listAdapter = new ContactListAdapter();
+		
+		
 		contactListView.setAdapter(listAdapter);
 		contactListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parentView, View clickedView, int clickedViewPosition, long id) {
 
 				Intent intent = new Intent();
-				intent.putExtra("contact", contacts.get(clickedViewPosition));
+				intent.putExtra(CONTACT_CLICKED, contacts.get(clickedViewPosition));
 				intent.setClass(ContactListActivity.this, ContactViewActivity.class);
 				startActivity(intent);
 			}
 
 		});
-
-		// The following code in this method, is taken from a open source Github.
-		// https://github.com/romannurik/android-swipetodismiss
-
-		// Create a ListView-specific touch listener. ListViews are given special treatment because
-		// by default they handle touches for their list items... i.e. they're in charge of drawing
-		// the pressed state (the list selector), handling list item clicks, etc.
-		SwipeDismissListViewTouchListener touchListener =
-				new SwipeDismissListViewTouchListener(
-						contactListView,
-						new SwipeDismissListViewTouchListener.DismissCallbacks() {
-							@Override
-							public boolean canDismiss(int position) {
-								return true;
-							}
-
-							@Override
-							public void onDismiss(ListView listView, int[] reverseSortedPositions) {
-								for (int position : reverseSortedPositions) {
-									((ContactListAdapter) listAdapter).remove((Contact) listAdapter.getItem(position));
-								}
-								((ContactListAdapter) listAdapter).notifyDataSetChanged();
-							}
-						});
-		contactListView.setOnTouchListener(touchListener);
-		// Setting this scroll listener is required to ensure that during ListView scrolling,
-		// we don't look for swipes.
-		contactListView.setOnScrollListener(touchListener.makeScrollListener());
 
 	}
 
@@ -109,7 +113,7 @@ public class ContactListActivity extends Activity {
 		switch (item.getItemId()) {
 		case R.id.add_new_contact:
 			Intent intent = new Intent();
-			intent.setClass(ContactListActivity.this, EditContactActivity.class);
+			intent.setClass(ContactListActivity.this, NewContactActivity.class);
 			startActivity(intent);
 		}
 		return true;

@@ -1,73 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.1.4" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true">  
-  <class id="1" language="java" name="nwea171.softeng206.contacts.Contact" project="Contacts" 
-    file="/Contacts/src/nwea171/softeng206/contacts/Contact.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="199" y="278"/>    
-    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
+  <class id="1" language="java" name="nwea171.softeng206.contacts.swipetodismiss.SwipeDismissTouchListener" 
+    project="Contacts" file="/Contacts/src/nwea171/softeng206/contacts/swipetodismiss/SwipeDismissTouchListener.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="314" width="354" x="702" y="267"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="2" language="java" name="nwea171.softeng206.contacts.ContactListActivity" project="Contacts" 
-    file="/Contacts/src/nwea171/softeng206/contacts/ContactListActivity.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="460" y="85"/>    
-    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
-      visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="3" language="java" name="nwea171.softeng206.contacts.ContactListActivity.ContactListAdapter" 
-    project="Contacts" file="/Contacts/src/nwea171/softeng206/contacts/ContactListActivity.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="455" y="322"/>    
-    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
-      visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="4" language="java" name="nwea171.softeng206.contacts.swipetodismiss.SwipeDismissListViewTouchListener" 
+  <class id="2" language="java" name="nwea171.softeng206.contacts.swipetodismiss.SwipeDismissListViewTouchListener" 
     project="Contacts" 
     file="/Contacts/src/nwea171/softeng206/contacts/swipetodismiss/SwipeDismissListViewTouchListener.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="777" y="6"/>    
-    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
+    <position height="386" width="381" x="1096" y="267"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="5" language="java" 
+  <interface id="3" language="java" 
     name="nwea171.softeng206.contacts.swipetodismiss.SwipeDismissListViewTouchListener.DismissCallbacks" 
     project="Contacts" 
     file="/Contacts/src/nwea171/softeng206/contacts/swipetodismiss/SwipeDismissListViewTouchListener.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="563" y="458"/>    
+    <position height="-1" width="-1" x="1126" y="758"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="6" language="java" 
-    name="nwea171.softeng206.contacts.swipetodismiss.SwipeDismissListViewTouchListener.PendingDismissData" 
-    project="Contacts" 
-    file="/Contacts/src/nwea171/softeng206/contacts/swipetodismiss/SwipeDismissListViewTouchListener.java" 
-    binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="825" y="432"/>    
-    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
+  <class id="4" language="java" name="nwea171.softeng206.contacts.ContactViewActivity" project="Contacts" 
+    file="/Contacts/src/nwea171/softeng206/contacts/ContactViewActivity.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1945" y="354"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="7" language="java" name="nwea171.softeng206.contacts.swipetodismiss.SwipeDismissTouchListener" 
-    project="Contacts" file="/Contacts/src/nwea171/softeng206/contacts/swipetodismiss/SwipeDismissTouchListener.java" 
+  <class id="5" language="java" name="nwea171.softeng206.contacts.ContactListActivity" project="Contacts" 
+    file="/Contacts/src/nwea171/softeng206/contacts/ContactListActivity.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1660" y="543"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" 
+    name="nwea171.softeng206.contacts.swipetodismiss.SwipeDismissListViewTouchListener.PendingDismissData" 
+    project="Contacts" 
+    file="/Contacts/src/nwea171/softeng206/contacts/swipetodismiss/SwipeDismissListViewTouchListener.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1162" y="481"/>    
+    <position height="-1" width="-1" x="1370" y="774"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="nwea171.softeng206.contacts.Contact" project="Contacts" 
+    file="/Contacts/src/nwea171/softeng206/contacts/Contact.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1946" y="681"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -78,61 +77,197 @@
     name="nwea171.softeng206.contacts.swipetodismiss.SwipeDismissTouchListener.DismissCallbacks" project="Contacts" 
     file="/Contacts/src/nwea171/softeng206/contacts/swipetodismiss/SwipeDismissTouchListener.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1151" y="140"/>    
+    <position height="-1" width="-1" x="864" y="742"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <nesting id="9">    
-    <end type="SOURCE" refId="2"/>    
+  <class id="9" language="java" name="nwea171.softeng206.contacts.ContactListActivity.ContactListAdapter" 
+    project="Contacts" file="/Contacts/src/nwea171/softeng206/contacts/ContactListActivity.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1686" y="781"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="nwea171.softeng206.contacts.NewContactActivity" project="Contacts" 
+    file="/Contacts/src/nwea171/softeng206/contacts/NewContactActivity.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1659" y="341"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="11" language="java" name="android.widget.Button" project="Contacts" 
+    file="/Users/kenweatherburn/android-sdks/platforms/android-15/android.jar" binary="true" corner="BOTTOM_RIGHT">    
+    <position height="62" width="196" x="1616" y="145"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="12" language="java" name="android.widget.ListView" project="Contacts" 
+    file="/Users/kenweatherburn/android-sdks/platforms/android-15/android.jar" binary="true" corner="BOTTOM_RIGHT">    
+    <position height="65" width="366" x="1240" y="145"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="13" language="java" name="android.view.View.OnTouchListener" project="Contacts" 
+    file="/Users/kenweatherburn/android-sdks/platforms/android-15/android.jar" binary="true" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1053" y="203"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <dependency id="14">    
+    <bendpoint x="1502" y="870"/>    
+    <bendpoint x="1125" y="872"/>    
+    <end type="SOURCE" refId="5"/>    
     <end type="TARGET" refId="3"/>  
-  </nesting>  
-  <association id="10">    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="11" name="mCallbacks"/>      
-      <multiplicity id="12" minimum="0" maximum="1"/>    
+  </dependency>  
+  <association id="15">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="16" name="contacts">        
+        <position height="18" width="56" x="1797" y="589"/>      
+      </attribute>      
+      <multiplicity id="17" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <association id="18">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="19" name="mCallbacks"/>      
+      <multiplicity id="20" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="8" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="13">    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="14" name="mCallbacks"/>      
-      <multiplicity id="15" minimum="0" maximum="1"/>    
+  <nesting id="21">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="8"/>  
+  </nesting>  
+  <realization id="22">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="13"/>  
+  </realization>  
+  <dependency id="23">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <nesting id="24">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="9"/>  
+  </nesting>  
+  <association id="25">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="26" name="listAdapter">        
+        <position height="18" width="69" x="1599" y="704"/>      
+      </attribute>      
+      <multiplicity id="27" minimum="0" maximum="1">        
+        <position height="16" width="25" x="1673" y="652"/>      
+      </multiplicity>    
     </end>    
-    <end type="TARGET" refId="5" navigable="true"/>    
+    <end type="TARGET" refId="9" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <nesting id="16">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="5"/>  
+  <nesting id="28">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="6"/>  
   </nesting>  
-  <association id="17">    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="18" name="mPendingDismisses"/>      
-      <multiplicity id="19" minimum="0" maximum="2147483647"/>    
+  <association id="29">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="30" name="mPendingDismisses"/>      
+      <multiplicity id="31" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="6" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="20">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="21" name="contacts"/>      
-      <multiplicity id="22" minimum="0" maximum="2147483647"/>    
+  <association id="32">    
+    <bendpoint x="1495" y="375"/>    
+    <bendpoint x="1492" y="274"/>    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="33" name="contactListView">        
+        <position height="18" width="96" x="1272" y="229"/>      
+      </attribute>      
+      <multiplicity id="34" minimum="0" maximum="1">        
+        <position height="16" width="25" x="1383" y="296"/>      
+      </multiplicity>    
     </end>    
-    <end type="TARGET" refId="1" navigable="true"/>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <association id="35">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="36" name="contact"/>      
+      <multiplicity id="37" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="38">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <association id="39">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="40" name="mCallbacks"/>      
+      <multiplicity id="41" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <nesting id="23">    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="8"/>  
+  <nesting id="42">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="3"/>  
   </nesting>  
-  <nesting id="24">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="6"/>  
-  </nesting>  
+  <dependency id="43">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <association id="44">    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="45" name="cancelButton">        
+        <position height="18" width="82" x="1763" y="252"/>      
+      </attribute>      
+      <multiplicity id="46" minimum="0" maximum="1">        
+        <position height="16" width="25" x="1759" y="217"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="47">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <realization id="48">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="13"/>  
+  </realization>  
+  <association id="49">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="50" name="mListView">        
+        <position height="18" width="64" x="1266" y="270"/>      
+      </attribute>      
+      <multiplicity id="51" minimum="0" maximum="1">        
+        <position height="16" width="25" x="1350" y="261"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    

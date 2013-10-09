@@ -19,5 +19,7 @@
     <string name="sort_contacts">Sort by</string>
     <string name="save_contact">Save</string>
     <string name="cancel_add">Cancel</string>
+    <string name="undo">Undo</string>
+    <string name="undoall">Undo All</string>
 
 </resources>

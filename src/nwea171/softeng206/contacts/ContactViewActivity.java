@@ -16,7 +16,7 @@ public class ContactViewActivity extends Activity {
 		setContentView(R.layout.activity_contact_view);
 		
 		// Add contact information to Views;
-		contact = (Contact) getIntent().getSerializableExtra("contact"); 
+		contact = (Contact) getIntent().getSerializableExtra(ContactListActivity.CONTACT_CLICKED); 
 		((TextView) findViewById(R.id.contact_first_name)).setText(contact.getFirstName());
 		((TextView) findViewById(R.id.contact_surname)).setText(contact.getSurname());
 		((TextView) findViewById(R.id.contact_date_of_birth)).setText(contact.getDateOfBirth());
