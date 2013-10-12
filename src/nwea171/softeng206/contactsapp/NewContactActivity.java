@@ -1,5 +1,6 @@
-package nwea171.softeng206.contacts;
+package nwea171.softeng206.contactsapp;
 
+import nwea171.softeng206.contacts.R;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;

@@ -34,8 +34,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="4" language="java" name="nwea171.softeng206.contacts.ContactViewActivity" project="Contacts" 
-    file="/Contacts/src/nwea171/softeng206/contacts/ContactViewActivity.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="4" language="java" name="nwea171.softeng206.contactsapp.ContactViewActivity" project="Contacts" 
+    file="/Contacts/src/nwea171/softeng206/contactsapp/ContactViewActivity.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1945" y="354"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -43,8 +43,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="5" language="java" name="nwea171.softeng206.contacts.ContactListActivity" project="Contacts" 
-    file="/Contacts/src/nwea171/softeng206/contacts/ContactListActivity.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="5" language="java" name="nwea171.softeng206.contactsapp.ContactListActivity" project="Contacts" 
+    file="/Contacts/src/nwea171/softeng206/contactsapp/ContactListActivity.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1660" y="543"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -64,8 +64,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="7" language="java" name="nwea171.softeng206.contacts.Contact" project="Contacts" 
-    file="/Contacts/src/nwea171/softeng206/contacts/Contact.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="7" language="java" name="nwea171.softeng206.contactsapp.Contact" project="Contacts" 
+    file="/Contacts/src/nwea171/softeng206/contactsapp/Contact.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1946" y="681"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -84,8 +84,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="9" language="java" name="nwea171.softeng206.contacts.ContactListActivity.ContactListAdapter" 
-    project="Contacts" file="/Contacts/src/nwea171/softeng206/contacts/ContactListActivity.java" binary="false" 
+  <class id="9" language="java" name="nwea171.softeng206.contactsapp.ContactListActivity.ContactListAdapter" 
+    project="Contacts" file="/Contacts/src/nwea171/softeng206/contactsapp/ContactListActivity.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1686" y="781"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -94,8 +94,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="10" language="java" name="nwea171.softeng206.contacts.NewContactActivity" project="Contacts" 
-    file="/Contacts/src/nwea171/softeng206/contacts/NewContactActivity.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="10" language="java" name="nwea171.softeng206.contactsapp.NewContactActivity" project="Contacts" 
+    file="/Contacts/src/nwea171/softeng206/contactsapp/NewContactActivity.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1659" y="341"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      

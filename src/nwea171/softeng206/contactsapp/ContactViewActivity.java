@@ -1,10 +1,11 @@
-package nwea171.softeng206.contacts;
+package nwea171.softeng206.contactsapp;
 
+import nwea171.softeng206.contacts.R;
+import nwea171.softeng206.contactsapp.contacts.Contact;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class ContactViewActivity extends Activity {
 	

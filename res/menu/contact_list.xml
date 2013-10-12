@@ -4,7 +4,8 @@
         android:id="@+id/add_new_contact"
         android:orderInCategory="10"
         android:showAsAction="always"
-        android:title="@string/add_contact" />
+        android:title="@string/add_contact"
+        android:icon="@drawable/ic_action_new" />
     
     <item
         android:id="@+id/sort_contacts"

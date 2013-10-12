@@ -16,10 +16,13 @@
     <string name="notes_prompt">Notes</string>
     <string name="title_activity_edit_contact">EditContactActivity</string>
     <string name="add_contact">Add New Contact</string>
-    <string name="sort_contacts">Sort by</string>
+    <string name="sort_contacts">Sort</string>
     <string name="save_contact">Save</string>
     <string name="cancel_add">Cancel</string>
     <string name="undo">Undo</string>
     <string name="undoall">Undo All</string>
+    <string name="sort_dialog_title">Sort Contacts</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
 
 </resources>

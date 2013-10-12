@@ -1,7 +1,8 @@
-package nwea171.softeng206.contacts;
+package nwea171.softeng206.contactsapp;
 
-import java.util.ArrayList;
-
+import nwea171.softeng206.contacts.R;
+import nwea171.softeng206.contactsapp.contacts.Contact;
+import nwea171.softeng206.contactsapp.contacts.ContactsList;
 import de.timroes.swipetodismiss.SwipeDismissList;
 import de.timroes.swipetodismiss.SwipeDismissList.SwipeDirection;
 import de.timroes.swipetodismiss.SwipeDismissList.UndoMode;
@@ -9,8 +10,11 @@ import de.timroes.swipetodismiss.SwipeDismissList.Undoable;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,9 +24,6 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,11 +31,13 @@ import android.widget.Toast;
 public class ContactListActivity extends Activity {
 	
 	public static final String CONTACT_CLICKED = "Contact Clicked";
-
+	
+	
+	SwipeDismissList swipeList;
 	ListView contactListView;	// ListView, will display contacts
 	ContactListAdapter listAdapter;	// List Adapter
 
-	ArrayList<Contact> contacts = new ArrayList<Contact>();
+	ContactsList contacts = new ContactsList();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -61,23 +64,34 @@ public class ContactListActivity extends Activity {
 		        	}
 		        	@Override
 		        	public void discard() {
-		        		// TODO
+		        		// TODO 
+		        		// Will remove from the backing database
 		        	}
 		        };
 		    }
 		};
+		
 		UndoMode mode = SwipeDismissList.UndoMode.SINGLE_UNDO;
-		SwipeDismissList swipeList = new SwipeDismissList(contactListView, callback, mode);
+		swipeList = new SwipeDismissList(contactListView, callback, mode);
 		swipeList.setSwipeDirection(SwipeDirection.START);
+		
+		// Create the list view and adapter
 		setupListView();
 	}
 
 	// Instantiates the values in the list view.
 	private void setupListView() {
 		// Instantiates 10 contacts for the listView.
-		for (int i = 0; i < 10; i++) {
-			contacts.add(new Contact());
-		}
+		contacts.add(new Contact("Nicholas", "Weatherburn", "0211111111", null, null, null, null, null, null));
+		contacts.add(new Contact("Karen", "Goedeke", "0222222222", null, null, null, null, null, null));
+		contacts.add(new Contact("Michael", "Shafer", "0233333333", null, null, null, null, null, null));
+		contacts.add(new Contact("Lauren", "Romano", "0244444444", null, null, null, null, null, null));
+		contacts.add(new Contact("Chris", "Morgan", "0255555555", null, null, null, null, null, null));
+		contacts.add(new Contact("Emma", "McMillan", "0266666666", null, null, null, null, null, null));
+		contacts.add(new Contact("Anthony", "Wiseman", "0277777777", null, null, null, null, null, null));
+		contacts.add(new Contact("Alice", "Burney", "0288888888", null, null, null, null, null, null));
+		contacts.add(new Contact("Kit", "Adamson", "0299999999", null, null, null, null, null, null));
+		contacts.add(new Contact("Marisa", "Kirkbride", "0200000000", null, null, null, null, null, null));
 
 		// Adds onItemCickListener to the list of contacts
 		listAdapter = new ContactListAdapter();
@@ -102,9 +116,7 @@ public class ContactListActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		MenuInflater inflater=getMenuInflater();
 		inflater.inflate(R.menu.contact_list, menu);
-
-
-		return true;
+		return super.onCreateOptionsMenu(menu);
 	}
 
 	@Override
@@ -115,8 +127,47 @@ public class ContactListActivity extends Activity {
 			Intent intent = new Intent();
 			intent.setClass(ContactListActivity.this, NewContactActivity.class);
 			startActivity(intent);
+			break; // Break switch statement.
+		case R.id.sort_contacts:
+			AlertDialog.Builder builder = new AlertDialog.Builder(ContactListActivity.this);
+			builder.setTitle(R.string.sort_dialog_title);
+			
+			builder.setSingleChoiceItems(R.array.sort_options_array, -1, null);
+			
+			// Set the confirm button
+			builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+				   
+		           public void onClick(DialogInterface dialog, int id) {
+		        	   ListView lv = ((AlertDialog) dialog).getListView();
+		        	   int position = lv.getCheckedItemPosition();
+		               switch (position) {
+		               case 0:
+		            	   contacts.sortByFirstName(false);
+		            	   break;
+		               case 1:
+		            	   contacts.sortBySurname(false);
+		            	   break;
+		               case 2:
+		            	   contacts.sortByMobileNumber(false);
+		            	   break;
+		               }
+		               listAdapter.notifyDataSetChanged();
+		           }
+		       });
+			
+			// Set the cancel button
+			builder.setNegativeButton(R.string.cancel, null); // Nothing needs to be changed
+			AlertDialog dialog = builder.create();
+			dialog.show();
+			break; // Break switch statement.
 		}
 		return true;
+	}
+	
+	@Override
+	public void onStop() {
+		super.onStop();
+		swipeList.discardUndo();
 	}
 
 	private class ContactListAdapter extends ArrayAdapter<Contact> {
@@ -124,7 +175,8 @@ public class ContactListActivity extends Activity {
 		ContactListAdapter() {
 			super(ContactListActivity.this, android.R.layout.simple_list_item_1, contacts);
 		}
-
+		
+		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 
 			// Create a layout inflater to inflate our xml for each item in the list
@@ -138,7 +190,7 @@ public class ContactListActivity extends Activity {
 			TextView surname = (TextView) listItemView.findViewById(R.id.last_name);
 			TextView number = (TextView) listItemView.findViewById(R.id.mobile_number);
 
-			ImageView imageView = (ImageView) listItemView.findViewById(R.id.contact_image);
+			//ImageView imageView = (ImageView) listItemView.findViewById(R.id.contact_image);
 
 			Contact contact = contacts.get(position);
 			firstName.setText(contact.getFirstName());
