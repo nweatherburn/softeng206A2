@@ -80,7 +80,7 @@ public class ContactListActivity extends Activity {
 	// Instantiates the values in the list view.
 	private void setupListView() {
 		// Instantiates 10 contacts for the listView.
-		contacts.add(new Contact("Nicholas", "Weatherburn", "0211111111", null, null, null, null, null, null));
+		contacts.add(new Contact("Nicholas", "Weatherburn", "0211111111", "094807169", null, "23/07/1992", "nwea171@aucklanduni.ac.nz", "17 Clarence Rd Northcote Pt", "This guy is one awesome, awesome person! He really is the best guy around."));
 		contacts.add(new Contact("Karen", "Goedeke", "0222222222", null, null, null, null, null, null));
 		contacts.add(new Contact("Michael", "Shafer", "0233333333", null, null, null, null, null, null));
 		contacts.add(new Contact("Lauren", "Romano", "0244444444", null, null, null, null, null, null));
@@ -131,6 +131,7 @@ public class ContactListActivity extends Activity {
 			builder.setTitle(R.string.sort_dialog_title);
 			
 			builder.setSingleChoiceItems(R.array.sort_options_array, -1, null);
+			//builder.setMultiChoiceItems(R.array.sort_reverse_option, null, null);
 			
 			// Set the confirm button
 			builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {

@@ -17,11 +17,12 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
     
-    <style name="HorizontalRule" >
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">0.2dp</item>
-        <item name="android:background">#000000</item>
-        <item name="android:visibility">visible</item>
+    <style name="contact_info" >
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
     </style>
     
     <style name="fade_animation">
