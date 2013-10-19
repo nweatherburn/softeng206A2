@@ -14,7 +14,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,15 +25,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class ContactListActivity extends Activity {
 	
 	public static final String CONTACT_CLICKED = "Contact Clicked";
 	
 	
-	SwipeDismissList swipeList;
-	ListView contactListView;	// ListView, will display contacts
+	SwipeDismissList swipeList;  // SwipeList
+	ListView contactListView;  // ListView, will display contacts
 	ContactListAdapter listAdapter;	// List Adapter
 
 	ContactsList contacts = new ContactsList();
@@ -138,21 +136,23 @@ public class ContactListActivity extends Activity {
 			builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
 				   
 		           public void onClick(DialogInterface dialog, int id) {
+		        	   // Gets sort option and sorts contacts by selected order.
 		        	   ListView lv = ((AlertDialog) dialog).getListView();
 		        	   if (lv.getCheckedItemCount() == 0) {
 		        		   return;
 		        	   }
 		        	   String selection = (String) lv.getAdapter().getItem(lv.getCheckedItemPosition());
-		        	   Log.d(selection, "dialog");
 		               if (selection.equals(getString(R.string.first_name))) {
-		            	   Log.d("Sort", "dialog");
 		            	   contacts.sortByFirstName(false);
 		               } else if (selection.equals(getString(R.string.surname))) {
-		            	   contacts.sortByFirstName(false);
+		            	   contacts.sortBySurname(false);
 		               } else if (selection.equals(getString(R.string.mobile_number))) {
-		            	   contacts.sortByFirstName(false);
+		            	   contacts.sortByMobileNumber(false);
 		               }
 		               listAdapter.notifyDataSetChanged();
+		               
+		               // Remove any undo dialogs that may be active.
+		               swipeList.discardUndo();
 		           }
 		       });
 			
@@ -172,6 +172,10 @@ public class ContactListActivity extends Activity {
 	}
 
 	private class ContactListAdapter extends ArrayAdapter<Contact> {
+		
+		/**
+		 * ContactListAdapter used to adapt a List of contacts to be used in a ListView.
+		 */
 
 		ContactListAdapter() {
 			super(ContactListActivity.this, android.R.layout.simple_list_item_1, contacts);
