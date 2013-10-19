@@ -139,17 +139,18 @@ public class ContactListActivity extends Activity {
 				   
 		           public void onClick(DialogInterface dialog, int id) {
 		        	   ListView lv = ((AlertDialog) dialog).getListView();
-		        	   int position = lv.getCheckedItemPosition();
-		               switch (position) {
-		               case 0:
+		        	   if (lv.getCheckedItemCount() == 0) {
+		        		   return;
+		        	   }
+		        	   String selection = (String) lv.getAdapter().getItem(lv.getCheckedItemPosition());
+		        	   Log.d(selection, "dialog");
+		               if (selection.equals(getString(R.string.first_name))) {
+		            	   Log.d("Sort", "dialog");
 		            	   contacts.sortByFirstName(false);
-		            	   break;
-		               case 1:
-		            	   contacts.sortBySurname(false);
-		            	   break;
-		               case 2:
-		            	   contacts.sortByMobileNumber(false);
-		            	   break;
+		               } else if (selection.equals(getString(R.string.surname))) {
+		            	   contacts.sortByFirstName(false);
+		               } else if (selection.equals(getString(R.string.mobile_number))) {
+		            	   contacts.sortByFirstName(false);
 		               }
 		               listAdapter.notifyDataSetChanged();
 		           }
