@@ -35,7 +35,7 @@
         android:layout_below="@id/contact_first_name"
         android:layout_toLeftOf="@id/contact_image_button"
         android:inputType="textPersonName"
-        android:text="@string/surname_prompt" />
+        android:hint="@string/surname_prompt" />
 
     <EditText
         android:id="@+id/contact_date_of_birth"
@@ -45,7 +45,7 @@
         android:layout_alignRight="@+id/contact_image_button"
         android:layout_below="@id/contact_surname"
         android:inputType="date"
-        android:text="@string/date_of_birth_prompt" />
+        android:hint="@string/date_of_birth_prompt" />
 
     <EditText
         android:id="@+id/contact_mobile_number"
@@ -55,7 +55,7 @@
         android:layout_alignRight="@+id/contact_image_button"
         android:layout_below="@id/contact_date_of_birth"
         android:inputType="phone"
-        android:text="@string/mobile_number_prompt" />
+        android:hint="@string/mobile_number_prompt" />
 
     <EditText
         android:id="@+id/contact_home_number"
@@ -65,7 +65,7 @@
         android:layout_alignRight="@+id/contact_image_button"
         android:layout_below="@id/contact_mobile_number"
         android:inputType="phone"
-        android:text="@string/home_number_prompt" />
+        android:hint="@string/home_number_prompt" />
 
     <EditText
         android:id="@+id/contact_work_number"
@@ -75,7 +75,7 @@
         android:layout_alignRight="@+id/contact_image_button"
         android:layout_below="@id/contact_home_number"
         android:inputType="phone"
-        android:text="@string/work_number_prompt" />
+        android:hint="@string/work_number_prompt" />
 
     <EditText
         android:id="@+id/contact_email"
@@ -84,8 +84,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignRight="@+id/contact_image_button"
         android:layout_below="@id/contact_work_number"
-        android:inputType="text"
-        android:text="@string/email_address_prompt" />
+        android:inputType="textEmailAddress"
+        android:hint="@string/email_address_prompt" />
 
     <EditText
         android:id="@+id/contact_address"
@@ -95,7 +95,7 @@
         android:layout_alignRight="@+id/contact_image_button"
         android:layout_below="@id/contact_email"
         android:inputType="text"
-        android:text="@string/address_prompt" />
+        android:hint="@string/address_prompt" />
 
     <EditText
         android:id="@+id/contact_notes"
@@ -105,7 +105,7 @@
         android:layout_alignRight="@+id/contact_image_button"
         android:layout_below="@id/contact_address"
         android:inputType="textAutoCorrect"
-        android:text="@string/notes_prompt" />
+        android:hint="@string/notes_prompt" />
 
     <LinearLayout
         android:paddingTop="8dp"
