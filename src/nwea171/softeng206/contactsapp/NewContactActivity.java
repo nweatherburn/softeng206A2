@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 import nwea171.softeng206.contacts.R;
+import nwea171.softeng206.contactsapp.contacts.Contact;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -16,6 +17,7 @@ import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -23,6 +25,7 @@ public class NewContactActivity extends Activity {
 	
 	protected static final int TAKE_PHOTO = 0;
 	protected static final int GET_PHOTO_FROM_GALLERY = 1;
+	
 	
 	Button cancelButton, saveContactButton;
 	ImageButton imageButton;
@@ -82,10 +85,36 @@ public class NewContactActivity extends Activity {
 		saveContactButton = (Button) findViewById(R.id.save_contact);
 		saveContactButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				// Code to save contact to relevant database
+				setResult(RESULT_OK, createContactIntent());
 				finish();
 			}
 		});
+	}
+	
+	private Intent createContactIntent() {
+		// Get values from fields
+		String firstName = ((EditText) findViewById(R.id.contact_first_name)).getText().toString();
+		String surname = ((EditText) findViewById(R.id.contact_surname)).getText().toString();
+		String mobileNumber = ((EditText) findViewById(R.id.contact_mobile_number)).getText().toString();
+		String homeNumber = ((EditText) findViewById(R.id.contact_home_number)).getText().toString();
+		String workNumber = ((EditText) findViewById(R.id.contact_work_number)).getText().toString();
+		String DOB = ((EditText) findViewById(R.id.contact_date_of_birth)).getText().toString();
+		String email = ((EditText) findViewById(R.id.contact_email)).getText().toString();
+		String address = ((EditText) findViewById(R.id.contact_address)).getText().toString();
+		String notes = ((EditText) findViewById(R.id.contact_notes)).getText().toString();
+		
+		Intent i = new Intent();
+		i.putExtra(getString(R.string.first_name_prompt), firstName.length() == 0 ? null : firstName);
+		i.putExtra(getString(R.string.surname_prompt), surname.length() == 0 ? null : surname);
+		i.putExtra(getString(R.string.mobile_number_prompt), mobileNumber.length() == 0 ? null : mobileNumber);
+		i.putExtra(getString(R.string.home_number_prompt), homeNumber.length() == 0 ? null : homeNumber);
+		i.putExtra(getString(R.string.work_number_prompt), workNumber.length() == 0 ? null : workNumber);
+		i.putExtra(getString(R.string.date_of_birth_prompt), DOB.length() == 0 ? null : DOB);
+		i.putExtra(getString(R.string.email_address_prompt), email.length() == 0 ? null : email);
+		i.putExtra(getString(R.string.address_prompt), address.length() == 0 ? null : address);
+		i.putExtra(getString(R.string.notes_prompt), notes.length() == 0 ? null : notes);
+		return i;
+		
 	}
 	
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -114,7 +114,6 @@ public class ContactsList extends ArrayList<Contact>{
 		 * @return Comparator that sorts contacts with primary, secondary, etc order.
 		 */
 		public static Comparator<Contact> getComparator(final ContactComparator... comparators) {
-			Log.d("Sorting", "Pass");
 	        return new Comparator<Contact>() {
 	            public int compare(Contact first, Contact second) {
 	                for (ContactComparator comparator : comparators) {

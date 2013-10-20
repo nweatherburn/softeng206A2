@@ -11,6 +11,8 @@ public class Contact implements Serializable {
 	 * @author Nicholas Weatherburn
 	 */
 	
+	
+	private int id;
 	private String firstName;
 	private String surname;
 	private String dateOfBirth;
@@ -25,7 +27,8 @@ public class Contact implements Serializable {
 	/**
 	 * Contact constructor not to be used except by the ContactBuilder.
 	 */
-	public Contact(String firstName, 
+	public Contact(int id,
+			String firstName, 
 			String surname, 
 			String mobileNumber,
 			String homeNumber,
@@ -35,6 +38,7 @@ public class Contact implements Serializable {
 			String address,
 			String notes) { 
 
+		this.id = id;
 		this.firstName = firstName;
 		this.surname = surname;
 		this.mobileNumber = mobileNumber;
@@ -52,6 +56,10 @@ public class Contact implements Serializable {
 	 * Getters and setters.
 	 * 
 	 ***********************************/
+	
+	public int getID() {
+		return id;
+	}
 	
 	public String getFirstName() {
 		return firstName;

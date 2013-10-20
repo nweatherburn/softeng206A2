@@ -14,6 +14,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -30,17 +32,28 @@ public class ContactListActivity extends Activity {
 	
 	public static final String CONTACT_CLICKED = "Contact Clicked";
 	
+	// Details for shared preferences
+	private final String PREFERENCES_NAME = "Contacts App Prefences";
+	private final String CONTACT_ID = "Unique Contact ID";
+	private final String SORT_ORDER = "Sort Order";
+	
+	// Code for creating new contact on startActivityForResult
+	private final int NEW_CONTACT_CODE = 0;
+	
 	
 	SwipeDismissList swipeList;  // SwipeList
 	ListView contactListView;  // ListView, will display contacts
 	ContactListAdapter listAdapter;	// List Adapter
+	ContactsDatabaseHandler dbHandler; // Database Handler
 
-	ContactsList contacts = new ContactsList();
+	ContactsList contacts;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_contact_list);
+		
+		dbHandler = new ContactsDatabaseHandler(ContactListActivity.this);
 
 		contactListView = (ListView) findViewById(R.id.contact_listview);
 		SwipeDismissList.OnDismissCallback callback = new SwipeDismissList.OnDismissCallback() {
@@ -62,8 +75,7 @@ public class ContactListActivity extends Activity {
 		        	}
 		        	@Override
 		        	public void discard() {
-		        		// TODO 
-		        		// Will remove from the backing database
+		        		dbHandler.deleteContact(itemToDelete);
 		        	}
 		        };
 		    }
@@ -79,17 +91,25 @@ public class ContactListActivity extends Activity {
 
 	// Instantiates the values in the list view.
 	private void setupListView() {
-		// Instantiates 10 contacts for the listView.
-		contacts.add(new Contact("Nicholas", "Weatherburn", "0211111111", "094807169", null, "23/07/1992", "nwea171@aucklanduni.ac.nz", "17 Clarence Rd Northcote Pt", "This guy is one awesome, awesome person! He really is the best guy around."));
-		contacts.add(new Contact("Karen", "Goedeke", "0222222222", null, null, null, null, null, null));
-		contacts.add(new Contact("Michael", "Shafer", "0233333333", null, null, null, null, null, null));
-		contacts.add(new Contact("Lauren", "Romano", "0244444444", null, null, null, null, null, null));
-		contacts.add(new Contact("Chris", "Morgan", "0255555555", null, null, null, null, null, null));
-		contacts.add(new Contact("Emma", "McMillan", "0266666666", null, null, null, null, null, null));
-		contacts.add(new Contact("Anthony", "Wiseman", "0277777777", null, null, null, null, null, null));
-		contacts.add(new Contact("Alice", "Burney", "0288888888", null, null, null, null, null, null));
-		contacts.add(new Contact("Kit", "Adamson", "0299999999", null, null, null, null, null, null));
-		contacts.add(new Contact("Marisa", "Kirkbride", "0200000000", null, null, null, null, null, null));
+		
+		/*// Instantiates 10 contacts for the listView.
+		contacts.add(new Contact(getNextUniqueID(), "Nicholas", "Weatherburn", "0211111111", "094807169", null, "23/07/1992", "nwea171@aucklanduni.ac.nz", "17 Clarence Rd Northcote Pt", "This guy is one awesome, awesome person! He really is the best guy around."));
+		contacts.add(new Contact(getNextUniqueID(), "Karen", "Goedeke", "0222222222", null, null, null, null, null, null));
+		contacts.add(new Contact(getNextUniqueID(), "Michael", "Shafer", "0233333333", null, null, null, null, null, null));
+		contacts.add(new Contact(getNextUniqueID(), "Lauren", "Romano", "0244444444", null, null, null, null, null, null));
+		contacts.add(new Contact(getNextUniqueID(), "Chris", "Morgan", "0255555555", null, null, null, null, null, null));
+		contacts.add(new Contact(getNextUniqueID(), "Emma", "McMillan", "0266666666", null, null, null, null, null, null));
+		contacts.add(new Contact(getNextUniqueID(), "Anthony", "Wiseman", "0277777777", null, null, null, null, null, null));
+		contacts.add(new Contact(getNextUniqueID(), "Alice", "Burney", "0288888888", null, null, null, null, null, null));
+		contacts.add(new Contact(getNextUniqueID(), "Kit", "Adamson", "0299999999", null, null, null, null, null, null));
+		contacts.add(new Contact(getNextUniqueID(), "Marisa", "Kirkbride", "0200000000", null, null, null, null, null, null));
+		
+		for (int i = 0; i < contacts.size(); i++) {
+			dbHandler.addContact(contacts.get(i));
+		}*/
+		
+		contacts = dbHandler.getAllContacts();
+		sort(contacts); // Sorts the contacts
 
 		// Adds onItemCickListener to the list of contacts
 		listAdapter = new ContactListAdapter();
@@ -108,6 +128,20 @@ public class ContactListActivity extends Activity {
 		});
 
 	}
+	
+	/**
+	 * Gets the next unique ID from preferences, and increments that unique ID.
+	 */
+	public int getNextUniqueID() {
+		SharedPreferences settings = getSharedPreferences(PREFERENCES_NAME, 0);
+		int id = settings.getInt(CONTACT_ID, 0);
+		SharedPreferences.Editor editor = settings.edit();
+		editor.putInt(CONTACT_ID, id + 1); // Increments the next unique ID.
+		editor.apply(); // Apply changes
+		
+		return id;
+		
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -124,7 +158,7 @@ public class ContactListActivity extends Activity {
 		case R.id.add_new_contact:
 			Intent intent = new Intent();
 			intent.setClass(ContactListActivity.this, NewContactActivity.class);
-			startActivity(intent);
+			startActivityForResult(intent, NEW_CONTACT_CODE);
 			break; // Break switch statement.
 		case R.id.sort_contacts:
 			AlertDialog.Builder builder = new AlertDialog.Builder(ContactListActivity.this);
@@ -143,14 +177,13 @@ public class ContactListActivity extends Activity {
 		        		   return;
 		        	   }
 		        	   String selection = (String) lv.getAdapter().getItem(lv.getCheckedItemPosition());
-		               if (selection.equals(getString(R.string.first_name))) {
-		            	   contacts.sortByFirstName(false);
-		               } else if (selection.equals(getString(R.string.surname))) {
-		            	   contacts.sortBySurname(false);
-		               } else if (selection.equals(getString(R.string.mobile_number))) {
-		            	   contacts.sortByMobileNumber(false);
-		               }
+		               sort(contacts, selection);
 		               listAdapter.notifyDataSetChanged();
+		               
+		               // Update sort order in shared preferences
+		               SharedPreferences.Editor editor = getSharedPreferences(PREFERENCES_NAME, 0).edit();
+		               editor.putString(SORT_ORDER, selection);
+		               editor.apply();
 		               
 		               // Remove any undo dialogs that may be active.
 		               swipeList.discardUndo();
@@ -164,6 +197,75 @@ public class ContactListActivity extends Activity {
 			break; // Break switch statement.
 		}
 		return true;
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// Check which event this is responding to.
+		Log.d("Result", ""+resultCode);
+		switch (requestCode) {
+		case NEW_CONTACT_CODE:
+			if (resultCode == RESULT_OK) {
+				Log.d("Result", ""+resultCode);
+				Contact contact = new Contact(
+						getNextUniqueID(),
+						(String) data.getCharSequenceExtra(getString(R.string.first_name_prompt)),
+						(String) data.getCharSequenceExtra(getString(R.string.surname_prompt)),
+						(String) data.getCharSequenceExtra(getString(R.string.mobile_number_prompt)),
+						(String) data.getCharSequenceExtra(getString(R.string.home_number_prompt)),
+						(String) data.getCharSequenceExtra(getString(R.string.work_number_prompt)),
+						(String) data.getCharSequenceExtra(getString(R.string.date_of_birth_prompt)),
+						(String) data.getCharSequenceExtra(getString(R.string.email_address_prompt)),
+						(String) data.getCharSequenceExtra(getString(R.string.address_prompt)),
+						(String) data.getCharSequenceExtra(getString(R.string.notes_prompt)));
+				contacts.add(contact); // Add the contact to the list of Contacts
+				dbHandler.addContact(contact); // Add the contact to the database
+				sort(contacts); // Sort the contacts list
+				listAdapter.notifyDataSetChanged(); // Notify the listadapter that the dataset has changed
+			}
+			
+		}
+	}
+	
+	/**
+	 * Sorts the contacts by the order already in shared preferences.
+	 * Note, this does not call notifyDataSetChanged.
+	 * @param contacts to be sorted
+	 */
+	private void sort(ContactsList contacts) {
+		SharedPreferences settings = getSharedPreferences(PREFERENCES_NAME, 0);
+		sort(contacts, settings.getString(SORT_ORDER, getString(R.string.first_name)));
+	}
+	
+	/**
+	 * Sort the given contactList by the given order and updates shared preferences.
+	 * Note, this does not call notifyDataSetChanged.
+	 * @param contacts to be sorted
+	 */
+	private void sort(ContactsList contacts, String order) {
+		// Sorts the contacts
+		if (order.equals(getString(R.string.first_name))) {
+     	   contacts.sortByFirstName(false);
+        } else if (order.equals(getString(R.string.surname))) {
+     	   contacts.sortBySurname(false);
+        } else if (order.equals(getString(R.string.mobile_number))) {
+     	   contacts.sortByMobileNumber(false);
+        }
+		
+		// Update sort order in shared preferences
+        SharedPreferences.Editor editor = getSharedPreferences(PREFERENCES_NAME, 0).edit();
+        editor.putString(SORT_ORDER, order);
+        editor.apply();
+	}
+	
+	@Override
+	public void onPause() {
+		super.onPause();
+		
+		// Update database of any changes
+		for (Contact contact: contacts) {
+			dbHandler.updateContact(contact);
+		}
 	}
 	
 	@Override
