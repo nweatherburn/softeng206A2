@@ -7,7 +7,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 public class ContactsDatabaseHandler extends SQLiteOpenHelper {
 	
@@ -54,7 +53,6 @@ public class ContactsDatabaseHandler extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		Log.d("ON CREATE", "ON CREATE");
 		db.execSQL(CREATE_CONTACTS_TABLE);
 		
 	}
@@ -76,7 +74,6 @@ public class ContactsDatabaseHandler extends SQLiteOpenHelper {
 		ContentValues values = getValues(contact);
 		
 		// Insert Row
-		Log.d("HELLO", "THIS HAPPENED");
 		db.insert(TABLE_CONTACTS, null, values);
 		db.close();
 	}

@@ -4,7 +4,6 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 import nwea171.softeng206.contacts.R;
-import nwea171.softeng206.contactsapp.contacts.Contact;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -104,6 +103,7 @@ public class NewContactActivity extends Activity {
 		String notes = ((EditText) findViewById(R.id.contact_notes)).getText().toString();
 		
 		Intent i = new Intent();
+		// Put all contact values in the intent, null if no value has been entered
 		i.putExtra(getString(R.string.first_name_prompt), firstName.length() == 0 ? null : firstName);
 		i.putExtra(getString(R.string.surname_prompt), surname.length() == 0 ? null : surname);
 		i.putExtra(getString(R.string.mobile_number_prompt), mobileNumber.length() == 0 ? null : mobileNumber);
@@ -120,7 +120,7 @@ public class NewContactActivity extends Activity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == TAKE_PHOTO) {
 			if (resultCode == RESULT_OK) {
-				// Photo has ben taken
+				// Photo has been taken
 				Bundle extras = data.getExtras();
 				imageButton.setImageBitmap((Bitmap) extras.get("data"));
 				// Add image to Contact

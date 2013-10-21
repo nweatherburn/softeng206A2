@@ -55,8 +55,7 @@
 		            android:layout_alignParentRight="true"
 		            android:layout_alignParentTop="true"
 		            android:paddingLeft="8dp"
-		            android:background="@android:color/transparent"
-		            android:scaleType="center"
+		            android:scaleType="fitCenter"
 		            android:src="@drawable/default_contact_photo" />
 		        
 
@@ -135,11 +134,10 @@
 	        android:layout_alignParentTop="true"
 	        android:layout_marginLeft="4dip"
 	        android:layout_marginRight="4dip"
-	        android:color="@color/grey"
 	        android:background="?android:attr/dividerVertical" />
 
 	    <View
-	        android:id="@+id/ViewColorPickerHelper"
+	        android:id="@+id/middle_divider"
 	        android:layout_width="1dip"
 	        android:layout_height="wrap_content"
 	        android:layout_alignParentBottom="true"
@@ -147,17 +145,16 @@
 	        android:layout_centerHorizontal="true"
 	        android:layout_marginBottom="4dip"
 	        android:layout_marginTop="4dip"
-	        android:color="@color/grey"
 	        android:background="?android:attr/dividerVertical" />
 
 	    <Button
-	        android:id="@+id/cancel_add_contact"
+	        android:id="@+id/cancel_contact_add"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_alignParentBottom="true"
 	        android:layout_alignParentLeft="true"
 	        android:layout_alignParentTop="true"
-	        android:layout_toLeftOf="@id/ViewColorPickerHelper"
+	        android:layout_toLeftOf="@id/middle_divider"
 	        android:background="?android:attr/selectableItemBackground"
 	        android:text="@string/cancel_add" />
 
@@ -168,9 +165,10 @@
 	        android:layout_alignParentBottom="true"
 	        android:layout_alignParentRight="true"
 	        android:layout_alignParentTop="true"
-	        android:layout_toRightOf="@id/ViewColorPickerHelper"
+	        android:layout_toRightOf="@id/middle_divider"
 	        android:background="?android:attr/selectableItemBackground"
 	        android:text="@string/save_contact" />
+	    
 	</RelativeLayout>
     
 </LinearLayout>

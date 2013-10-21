@@ -24,11 +24,13 @@
         </activity>
         <activity
             android:name="nwea171.softeng206.contactsapp.ContactViewActivity"
-            android:label="@string/title_activity_contact_view" >
+            android:label="@string/title_activity_contact_view"
+            android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
             android:name="nwea171.softeng206.contactsapp.NewContactActivity"
-            android:label="@string/title_activity_edit_contact" >
+            android:label="@string/title_activity_edit_contact"
+            android:windowSoftInputMode="stateHidden" >
         </activity>
     </application>
 

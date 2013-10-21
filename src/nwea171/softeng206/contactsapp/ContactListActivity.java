@@ -106,9 +106,8 @@ public class ContactListActivity extends Activity {
 
 	// Instantiates the values in the list view.
 	private void setupListView() {
-		
-		/*// Instantiates 10 contacts for the listView.
-		contacts.add(new Contact(getNextUniqueID(), "Nicholas", "Weatherburn", "0211111111", "094807169", null, "23/07/1992", "nwea171@aucklanduni.ac.nz", "17 Clarence Rd Northcote Pt", "This guy is one awesome, awesome person! He really is the best guy around."));
+		// Instantiates 10 contacts for the listView.
+		/*contacts.add(new Contact(getNextUniqueID(), "Nicholas", "Weatherburn", "0211111111", "094807169", null, "23/07/1992", "nwea171@aucklanduni.ac.nz", "17 Clarence Rd Northcote Pt", "This guy is one awesome, awesome person! He really is the best guy around."));
 		contacts.add(new Contact(getNextUniqueID(), "Karen", "Goedeke", "0222222222", null, null, null, null, null, null));
 		contacts.add(new Contact(getNextUniqueID(), "Michael", "Shafer", "0233333333", null, null, null, null, null, null));
 		contacts.add(new Contact(getNextUniqueID(), "Lauren", "Romano", "0244444444", null, null, null, null, null, null));
@@ -217,11 +216,9 @@ public class ContactListActivity extends Activity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// Check which event this is responding to.
-		Log.d("Result", ""+resultCode);
 		switch (requestCode) {
 		case NEW_CONTACT_CODE:
 			if (resultCode == RESULT_OK) {
-				Log.d("Result", ""+resultCode);
 				Contact contact = new Contact(
 						getNextUniqueID(),
 						(String) data.getCharSequenceExtra(getString(R.string.first_name_prompt)),
