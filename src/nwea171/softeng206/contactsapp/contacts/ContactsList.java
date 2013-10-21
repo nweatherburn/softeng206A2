@@ -77,19 +77,46 @@ public class ContactsList extends ArrayList<Contact>{
 	public enum ContactComparator implements Comparator<Contact> {
 		FIRST_NAME_SORT {
 			public int compare(Contact first, Contact second) {
-				return first.getFirstName().compareTo(second.getFirstName());
+				String firstName = first.getFirstName();
+				String secondName = second.getFirstName();
+				if (firstName == null && secondName == null) {
+					return 0;
+				} else if (firstName == null) {
+					return 1;
+				} else if (secondName == null) {
+					return -1;
+				}
+				return firstName.compareTo(secondName);
 			}
 		},
 		
 		SURNAME_SORT {
 			public int compare(Contact first, Contact second) {
-				return first.getSurname().compareTo(second.getSurname());
+				String firstName = first.getSurname();
+				String secondName = second.getSurname();
+				if (firstName == null && secondName == null) {
+					return 0;
+				} else if (firstName == null) {
+					return 1;
+				} else if (secondName == null) {
+					return -1;
+				}
+				return firstName.compareTo(secondName);
 			}
 		},
 		
 		MOBILE_NUMBER_SORT {
 			public int compare(Contact first, Contact second) {
-				return first.getMobileNumber().compareTo(second.getMobileNumber());
+				String firstNumber = first.getMobileNumber();
+				String secondNumber = second.getMobileNumber();
+				if (firstNumber == null && secondNumber == null) {
+					return 0;
+				} else if (firstNumber == null) {
+					return 1;
+				} else if (secondNumber == null) {
+					return -1;
+				}
+				return firstNumber.compareTo(secondNumber);
 			}
 		};
 		

@@ -68,9 +68,24 @@ public class ContactListActivity extends Activity {
 		                listAdapter.insert(itemToDelete, position);
 		            }
 		        	
+		        	/**
+		        	 * Creates the message for the undo popup that appears when a contact is deleted.
+		        	 */
 		        	@Override
 		        	public String getTitle() {
-		        		String undoMessage = itemToDelete.getFirstName() + " " + itemToDelete.getSurname() + " deleted.";
+		        		String firstName = itemToDelete.getFirstName();
+		        		String surname = itemToDelete.getSurname();
+		        		String undoMessage = "";
+		        		if (firstName != null) {
+		        			undoMessage += firstName + " ";
+		        		}
+		        		if (surname != null) {
+		        			undoMessage += surname + " ";
+		        		}
+		        		if (firstName == null && surname == null) {
+		        			undoMessage += "Contact ";
+		        		}
+		        		undoMessage += " deleted.";
 		        		return undoMessage;
 		        	}
 		        	@Override
