@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 import nwea171.softeng206.contacts.R;
+import nwea171.softeng206.contactsapp.contacts.Contact;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -18,6 +19,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class NewContactActivity extends Activity {
@@ -28,11 +30,15 @@ public class NewContactActivity extends Activity {
 	
 	Button cancelButton, saveContactButton;
 	ImageButton imageButton;
+	Contact contact;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_new_contact);
+		
+		contact = (Contact) getIntent().getSerializableExtra(ContactListActivity.CONTACT); 
+		loadValues(contact);
 		
 		// Add listener to the image button
 		imageButton = (ImageButton) findViewById(R.id.contact_image_button);
@@ -90,6 +96,44 @@ public class NewContactActivity extends Activity {
 		});
 	}
 	
+	/**
+	 * Load the values of the given contact into the edit text fields
+	 */
+	private void loadValues(Contact contact) {
+		if (contact.getFirstName() != null) {
+			((EditText) findViewById(R.id.contact_first_name)).setText(contact.getFirstName());
+		}
+		if (contact.getSurname() != null) {
+			((EditText) findViewById(R.id.contact_surname)).setText(contact.getSurname());
+		}
+		if (contact.getDateOfBirth() != null) {
+			((EditText) findViewById(R.id.contact_date_of_birth)).setText(contact.getDateOfBirth());
+		}
+		if (contact.getMobileNumber() != null) {
+			((EditText) findViewById(R.id.contact_mobile_number)).setText(contact.getMobileNumber());
+		}
+		if (contact.getHomeNumber() != null) {
+			((EditText) findViewById(R.id.contact_home_number)).setText(contact.getHomeNumber());
+		}
+		if (contact.getWorkNumber() != null) {
+			((EditText) findViewById(R.id.contact_work_number)).setText(contact.getWorkNumber());
+		}
+		if (contact.getEmailAddress() != null) {
+			((EditText) findViewById(R.id.contact_email)).setText(contact.getEmailAddress());
+		}
+		if (contact.getAddress() != null) {
+			((EditText) findViewById(R.id.contact_address)).setText(contact.getAddress());
+		}
+		if (contact.getNotes() != null) {
+			((EditText) findViewById(R.id.contact_notes)).setText(contact.getNotes());
+		}
+	}
+	
+	
+	/**
+	 * Creates an intent will all the contacts values
+	 * @return an intent with all contacts values
+	 */
 	private Intent createContactIntent() {
 		// Get values from fields
 		String firstName = ((EditText) findViewById(R.id.contact_first_name)).getText().toString();
@@ -117,6 +161,7 @@ public class NewContactActivity extends Activity {
 		
 	}
 	
+	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == TAKE_PHOTO) {
 			if (resultCode == RESULT_OK) {

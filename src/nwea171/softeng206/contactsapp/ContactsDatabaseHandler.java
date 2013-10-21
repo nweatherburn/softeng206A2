@@ -108,6 +108,11 @@ public class ContactsDatabaseHandler extends SQLiteOpenHelper {
 		return contact;
 	}
 	
+	/**
+	 * Updates the database of the contacts details
+	 * @param contact
+	 * @return result
+	 */
 	public int updateContact(Contact contact) {
 		SQLiteDatabase db = this.getWritableDatabase();
 		 

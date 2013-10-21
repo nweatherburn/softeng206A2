@@ -30,15 +30,16 @@ import android.widget.TextView;
 
 public class ContactListActivity extends Activity {
 	
-	public static final String CONTACT_CLICKED = "Contact Clicked";
+	public static final String CONTACT = "Contact";
 	
 	// Details for shared preferences
-	private final String PREFERENCES_NAME = "Contacts App Prefences";
-	private final String CONTACT_ID = "Unique Contact ID";
-	private final String SORT_ORDER = "Sort Order";
+	final static String PREFERENCES_NAME = "Contacts App Prefences";
+	final static String CONTACT_ID = "Unique Contact ID";
+	final static String SORT_ORDER = "Sort Order";
 	
-	// Code for creating new contact on startActivityForResult
-	private final int NEW_CONTACT_CODE = 0;
+	// Code for creating or editing new contact on startActivityForResult
+	final int NEW_CONTACT_CODE = 0;
+	final int EDIT_CONTACT_CODE = 1;
 	
 	
 	SwipeDismissList swipeList;  // SwipeList
@@ -134,9 +135,9 @@ public class ContactListActivity extends Activity {
 			public void onItemClick(AdapterView<?> parentView, View clickedView, int clickedViewPosition, long id) {
 
 				Intent intent = new Intent();
-				intent.putExtra(CONTACT_CLICKED, contacts.get(clickedViewPosition));
+				intent.putExtra(CONTACT, contacts.get(clickedViewPosition));
 				intent.setClass(ContactListActivity.this, ContactViewActivity.class);
-				startActivity(intent);
+				startActivityForResult(intent, EDIT_CONTACT_CODE);
 			}
 
 		});
@@ -171,6 +172,7 @@ public class ContactListActivity extends Activity {
 		switch (item.getItemId()) {
 		case R.id.add_new_contact:
 			Intent intent = new Intent();
+			intent.putExtra(CONTACT, new Contact(getNextUniqueID(), null, null, null, null, null, null, null, null, null));
 			intent.setClass(ContactListActivity.this, NewContactActivity.class);
 			startActivityForResult(intent, NEW_CONTACT_CODE);
 			break; // Break switch statement.
@@ -235,8 +237,35 @@ public class ContactListActivity extends Activity {
 				sort(contacts); // Sort the contacts list
 				listAdapter.notifyDataSetChanged(); // Notify the listadapter that the dataset has changed
 			}
-			
+			break;
+		case EDIT_CONTACT_CODE:
+			if (resultCode == RESULT_OK) {
+				Contact newContact = (Contact) data.getSerializableExtra(CONTACT);
+				
+				
+				dbHandler.updateContact(newContact);
+				contacts.remove(getIndexOfContactWithID(newContact.getID()));
+				contacts.add(newContact);
+				sort(contacts);
+				listAdapter.notifyDataSetChanged();
+				
+			}
 		}
+	}
+	
+	/**
+	 * Returns the contact with the given ID.
+	 * @param id of the contact
+	 * @return Contact or null otherwise
+	 */
+	private int getIndexOfContactWithID(int id) {
+		Contact result = null;
+		for (int i = 0; i < contacts.size(); i++) {
+			if (contacts.get(i).getID() == id) {
+				return i;
+			}
+		}
+		return -1;
 	}
 	
 	/**
