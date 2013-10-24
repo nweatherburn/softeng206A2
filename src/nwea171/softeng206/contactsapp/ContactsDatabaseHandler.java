@@ -1,5 +1,7 @@
 package nwea171.softeng206.contactsapp;
 
+import java.io.ByteArrayOutputStream;
+
 import nwea171.softeng206.contactsapp.contacts.Contact;
 import nwea171.softeng206.contactsapp.contacts.ContactsList;
 import android.content.ContentValues;
@@ -7,6 +9,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 public class ContactsDatabaseHandler extends SQLiteOpenHelper {
 	
@@ -30,6 +34,10 @@ public class ContactsDatabaseHandler extends SQLiteOpenHelper {
 	static final String CONTACT_ADDRESS = "address";
 	static final String CONTACT_EMAIL = "email";
 	static final String CONTACT_NOTES = "notes";
+	static final String CONTACT_IMAGE = "image";
+	
+	// Contact Image File Prefix
+	static final String IMAGE_FILE_PREFIX = "contact_image_";
 	
 	static final String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_CONTACTS + "("
 			+ CONTACT_ID + " INTEGER PRIMARY KEY,"
@@ -41,7 +49,8 @@ public class ContactsDatabaseHandler extends SQLiteOpenHelper {
 			+ CONTACT_DOB + " TEXT,"
 			+ CONTACT_EMAIL + " TEXT,"
 			+ CONTACT_ADDRESS + " TEXT,"
-			+ CONTACT_NOTES + " TEXT);";
+			+ CONTACT_NOTES + " TEXT,"
+			+ CONTACT_IMAGE + " BLOB);";
 	
 	
 	/**
@@ -89,13 +98,13 @@ public class ContactsDatabaseHandler extends SQLiteOpenHelper {
 		
 		Cursor cursor = db.query(TABLE_CONTACTS, 
 				new String[] { CONTACT_ID, CONTACT_FIRST_NAME, CONTACT_SURNAME, CONTACT_MOBILE_NUMBER,
-				CONTACT_HOME_NUMBER, CONTACT_WORK_NUMBER, CONTACT_DOB, CONTACT_EMAIL, CONTACT_ADDRESS, CONTACT_NOTES },
+				CONTACT_HOME_NUMBER, CONTACT_WORK_NUMBER, CONTACT_DOB, CONTACT_EMAIL, CONTACT_ADDRESS, CONTACT_NOTES, CONTACT_IMAGE },
 				"=?", new String[] { String.valueOf(id) }, null, null, null, null);
 		if (cursor != null) {
 			cursor.moveToFirst();
 		}
 		Contact contact = new Contact(
-				Integer.parseInt(cursor.getString(0)),
+				cursor.getInt(0),
 				cursor.getString(1),
 				cursor.getString(2),
 				cursor.getString(3),
@@ -105,6 +114,12 @@ public class ContactsDatabaseHandler extends SQLiteOpenHelper {
 				cursor.getString(7),
 				cursor.getString(8),
 				cursor.getString(9));
+		
+		byte[] imageArray = cursor.getBlob(10);
+		Bitmap bitmap = BitmapFactory.decodeByteArray(imageArray , 0, imageArray.length);
+		contact.setImage(bitmap);
+		
+
 		return contact;
 	}
 	
@@ -122,8 +137,10 @@ public class ContactsDatabaseHandler extends SQLiteOpenHelper {
 	            new String[] { String.valueOf(contact.getID()) });
 	   	db.close();
 	    // updating row
+	   	
 	    return result;
 	}
+	
 	/**
 	 * Delete a contact from the database
 	 * @param contact Delete a contact from the database
@@ -153,7 +170,7 @@ public class ContactsDatabaseHandler extends SQLiteOpenHelper {
 		if (cursor.moveToFirst()) {
 			do {
 				Contact contact = new Contact(
-						Integer.parseInt(cursor.getString(0)),
+						cursor.getInt(0),
 						cursor.getString(1),
 						cursor.getString(2),
 						cursor.getString(3),
@@ -163,6 +180,10 @@ public class ContactsDatabaseHandler extends SQLiteOpenHelper {
 						cursor.getString(7),
 						cursor.getString(8),
 						cursor.getString(9));
+				
+				//byte[] imageArray = cursor.getBlob(10);
+				Bitmap bitmap = BitmapFactory.decodeByteArray(cursor.getBlob(10) , 0, cursor.getBlob(10).length);
+				contact.setImage(bitmap);
 				
 				contacts.add(contact);
 			} while (cursor.moveToNext());
@@ -189,6 +210,12 @@ public class ContactsDatabaseHandler extends SQLiteOpenHelper {
 		values.put(CONTACT_EMAIL, contact.getEmailAddress());
 		values.put(CONTACT_ADDRESS, contact.getAddress());
 		values.put(CONTACT_NOTES, contact.getNotes());
+		
+		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		contact.getImage().compress(Bitmap.CompressFormat.PNG, 100, stream);
+		byte[] byteArray = stream.toByteArray();
+		
+		values.put(CONTACT_IMAGE,  byteArray);
 		
 		return values;
 	}

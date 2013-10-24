@@ -1,8 +1,5 @@
 package nwea171.softeng206.contactsapp;
 
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-
 import nwea171.softeng206.contacts.R;
 import nwea171.softeng206.contactsapp.contacts.Contact;
 import android.app.Activity;
@@ -10,17 +7,15 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
-import android.widget.Toast;
 
 public class NewContactActivity extends Activity {
 	
@@ -37,11 +32,13 @@ public class NewContactActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_new_contact);
 		
-		contact = (Contact) getIntent().getSerializableExtra(ContactListActivity.CONTACT); 
+		// Find the imageButton
+		imageButton = (ImageButton) findViewById(R.id.contact_image_button);
+		
+		contact = (Contact) getIntent().getParcelableExtra(ContactListActivity.CONTACT); 
 		loadValues(contact);
 		
 		// Add listener to the image button
-		imageButton = (ImageButton) findViewById(R.id.contact_image_button);
 		imageButton.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -127,6 +124,10 @@ public class NewContactActivity extends Activity {
 		if (contact.getNotes() != null) {
 			((EditText) findViewById(R.id.contact_notes)).setText(contact.getNotes());
 		}
+		if (contact.getImage() != null) {
+			Log.d("Image", "" + contact.getImage());
+			imageButton.setImageBitmap(contact.getImage());
+		}
 	}
 	
 	
@@ -146,6 +147,9 @@ public class NewContactActivity extends Activity {
 		String address = ((EditText) findViewById(R.id.contact_address)).getText().toString();
 		String notes = ((EditText) findViewById(R.id.contact_notes)).getText().toString();
 		
+		// Gets image as bitmap
+		Bitmap image = ((BitmapDrawable) imageButton.getDrawable()).getBitmap();
+		
 		Intent i = new Intent();
 		// Put all contact values in the intent, null if no value has been entered
 		i.putExtra(getString(R.string.first_name_prompt), firstName.length() == 0 ? null : firstName);
@@ -157,6 +161,7 @@ public class NewContactActivity extends Activity {
 		i.putExtra(getString(R.string.email_address_prompt), email.length() == 0 ? null : email);
 		i.putExtra(getString(R.string.address_prompt), address.length() == 0 ? null : address);
 		i.putExtra(getString(R.string.notes_prompt), notes.length() == 0 ? null : notes);
+		i.putExtra(getString(R.string.image_prompt), image);
 		return i;
 		
 	}
@@ -167,22 +172,28 @@ public class NewContactActivity extends Activity {
 			if (resultCode == RESULT_OK) {
 				// Photo has been taken
 				Bundle extras = data.getExtras();
+				Bitmap image = (Bitmap) extras.get("data");
+				
+				
 				imageButton.setImageBitmap((Bitmap) extras.get("data"));
-				// Add image to Contact
 			}
-		} else if (requestCode == GET_PHOTO_FROM_GALLERY) {
+		} /*else if (requestCode == GET_PHOTO_FROM_GALLERY) {
 			if (resultCode == RESULT_OK) {
 				try {
 					Uri chosenImage = data.getData();
 					InputStream imageStream = getContentResolver().openInputStream(chosenImage);
-					imageButton.setImageBitmap(BitmapFactory.decodeStream(imageStream));
-					// Add image to contact
-				} catch (FileNotFoundException e) {
+					
+					Bitmap bitmap = BitmapFactory.decodeStream(imageStream);
+					bitmap = Bitmap.createScaledBitmap(bitmap, 480, 480, false);
+					
+					imageStream.close();
+					imageButton.setImageBitmap(bitmap);
+				} catch (IOException e) {
 					// Shouldn't occur, error message just in case.
 					Toast.makeText(this, "Error Occurred: Could not load image", Toast.LENGTH_LONG).show();
-				}
+				} 
 			}
-		}
+		}*/
 	}
 
 	@Override

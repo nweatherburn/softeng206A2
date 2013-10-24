@@ -6,10 +6,10 @@
     
     <ImageView
         android:id="@+id/contact_image"
-        android:layout_width="0dip"
-        android:layout_height="fill_parent"
-        android:layout_weight="1" 
+        android:layout_width="96dp"
+        android:layout_height="96dp"
         android:adjustViewBounds="true"
+        android:scaleType="fitXY"
         android:src="@drawable/default_contact_photo" /> 
         
     <LinearLayout

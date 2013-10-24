@@ -15,6 +15,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -25,6 +26,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -86,7 +88,7 @@ public class ContactListActivity extends Activity {
 		        		if (firstName == null && surname == null) {
 		        			undoMessage += "Contact ";
 		        		}
-		        		undoMessage += " deleted.";
+		        		undoMessage += "deleted.";
 		        		return undoMessage;
 		        	}
 		        	@Override
@@ -107,22 +109,6 @@ public class ContactListActivity extends Activity {
 
 	// Instantiates the values in the list view.
 	private void setupListView() {
-		// Instantiates 10 contacts for the listView.
-		/*contacts.add(new Contact(getNextUniqueID(), "Nicholas", "Weatherburn", "0211111111", "094807169", null, "23/07/1992", "nwea171@aucklanduni.ac.nz", "17 Clarence Rd Northcote Pt", "This guy is one awesome, awesome person! He really is the best guy around."));
-		contacts.add(new Contact(getNextUniqueID(), "Karen", "Goedeke", "0222222222", null, null, null, null, null, null));
-		contacts.add(new Contact(getNextUniqueID(), "Michael", "Shafer", "0233333333", null, null, null, null, null, null));
-		contacts.add(new Contact(getNextUniqueID(), "Lauren", "Romano", "0244444444", null, null, null, null, null, null));
-		contacts.add(new Contact(getNextUniqueID(), "Chris", "Morgan", "0255555555", null, null, null, null, null, null));
-		contacts.add(new Contact(getNextUniqueID(), "Emma", "McMillan", "0266666666", null, null, null, null, null, null));
-		contacts.add(new Contact(getNextUniqueID(), "Anthony", "Wiseman", "0277777777", null, null, null, null, null, null));
-		contacts.add(new Contact(getNextUniqueID(), "Alice", "Burney", "0288888888", null, null, null, null, null, null));
-		contacts.add(new Contact(getNextUniqueID(), "Kit", "Adamson", "0299999999", null, null, null, null, null, null));
-		contacts.add(new Contact(getNextUniqueID(), "Marisa", "Kirkbride", "0200000000", null, null, null, null, null, null));
-		
-		for (int i = 0; i < contacts.size(); i++) {
-			dbHandler.addContact(contacts.get(i));
-		}*/
-		
 		contacts = dbHandler.getAllContacts();
 		sort(contacts); // Sorts the contacts
 
@@ -232,6 +218,8 @@ public class ContactListActivity extends Activity {
 						(String) data.getCharSequenceExtra(getString(R.string.email_address_prompt)),
 						(String) data.getCharSequenceExtra(getString(R.string.address_prompt)),
 						(String) data.getCharSequenceExtra(getString(R.string.notes_prompt)));
+				contact.setImage((Bitmap) data.getParcelableExtra(getString(R.string.image_prompt)));
+				
 				contacts.add(contact); // Add the contact to the list of Contacts
 				dbHandler.addContact(contact); // Add the contact to the database
 				sort(contacts); // Sort the contacts list
@@ -240,7 +228,7 @@ public class ContactListActivity extends Activity {
 			break;
 		case EDIT_CONTACT_CODE:
 			if (resultCode == RESULT_OK) {
-				Contact newContact = (Contact) data.getSerializableExtra(CONTACT);
+				Contact newContact = (Contact) data.getParcelableExtra(CONTACT);
 				
 				
 				dbHandler.updateContact(newContact);
@@ -256,10 +244,9 @@ public class ContactListActivity extends Activity {
 	/**
 	 * Returns the contact with the given ID.
 	 * @param id of the contact
-	 * @return Contact or null otherwise
+	 * @return index of contact with id @id in contacts
 	 */
 	private int getIndexOfContactWithID(int id) {
-		Contact result = null;
 		for (int i = 0; i < contacts.size(); i++) {
 			if (contacts.get(i).getID() == id) {
 				return i;
@@ -339,16 +326,16 @@ public class ContactListActivity extends Activity {
 			TextView surname = (TextView) listItemView.findViewById(R.id.last_name);
 			TextView number = (TextView) listItemView.findViewById(R.id.mobile_number);
 
-			//ImageView imageView = (ImageView) listItemView.findViewById(R.id.contact_image);
+			ImageView imageView = (ImageView) listItemView.findViewById(R.id.contact_image);
 
 			Contact contact = contacts.get(position);
 			firstName.setText(contact.getFirstName());
 			surname.setText(contact.getSurname());
 			number.setText(contact.getMobileNumber());
 
-			//if (contact.getImage() != null) {
-			//	imageView.setImageURI(contact.getImage());
-			//}
+			if (contact.getImage() != null) {
+				imageView.setImageBitmap(contact.getImage());
+			}
 
 			return listItemView;
 

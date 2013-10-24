@@ -1,16 +1,16 @@
 package nwea171.softeng206.contactsapp.contacts;
 
-import java.io.Serializable;
+import android.graphics.Bitmap;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-@SuppressWarnings("serial") // To suppress complier warnings
-public class Contact implements Serializable {
+public class Contact implements Parcelable {
 	
 	/**
 	 * Class to represent a single contact.
 	 * 
 	 * @author Nicholas Weatherburn
 	 */
-	
 	
 	private int id;
 	private String firstName;
@@ -22,7 +22,7 @@ public class Contact implements Serializable {
 	private String emailAddress;
 	private String address;
 	private String notes;
-	
+	private Bitmap image;
 	
 	/**
 	 * Contact constructor not to be used except by the ContactBuilder.
@@ -48,7 +48,55 @@ public class Contact implements Serializable {
 		this.emailAddress = emailAddress;
 		this.address = address;
 		this.notes = notes;
+		this.image = null;
 	}
+	
+	public Contact(Parcel in) {
+		id = in.readInt();
+		firstName = in.readString();
+		surname = in.readString();
+		dateOfBirth = in.readString();
+		mobileNumber = in.readString();
+		homeNumber = in.readString();
+		workNumber = in.readString();
+		emailAddress = in.readString();
+		address = in.readString();
+		notes = in.readString();
+		image = in.readParcelable(Bitmap.class.getClassLoader());
+	}
+	
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeInt(id);
+		dest.writeString(firstName);
+		dest.writeString(surname);
+		dest.writeString(dateOfBirth);
+		dest.writeString(mobileNumber);
+		dest.writeString(homeNumber);
+		dest.writeString(workNumber);
+		dest.writeString(emailAddress);
+		dest.writeString(address);
+		dest.writeString(notes);
+		dest.writeParcelable(image, 0);
+	}
+	
+	public static final Parcelable.Creator<Contact> CREATOR = new Parcelable.Creator<Contact>() {  
+	    
+        public Contact createFromParcel(Parcel in) {  
+            return new Contact(in);  
+        }  
+   
+        public Contact[] newArray(int size) {  
+            return new Contact[size];  
+        }  
+          
+    };  
 	
 
 	/* *********************************
@@ -97,6 +145,10 @@ public class Contact implements Serializable {
 		return notes;
 	}
 	
+	public Bitmap getImage() {
+		return image;
+	}
+	
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
@@ -132,5 +184,8 @@ public class Contact implements Serializable {
 	public void setNotes(String notes) {
 		this.notes = notes;
 	}
-
+	
+	public void setImage(Bitmap image) {
+		this.image = image;
+	}
 }

@@ -4,11 +4,13 @@ import nwea171.softeng206.contacts.R;
 import nwea171.softeng206.contactsapp.contacts.Contact;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ContactViewActivity extends Activity {
@@ -24,7 +26,7 @@ public class ContactViewActivity extends Activity {
 		setContentView(R.layout.activity_contact_view);
 		
 		// Add contact information to Views;
-		contact = (Contact) getIntent().getSerializableExtra(ContactListActivity.CONTACT); 
+		contact = (Contact) getIntent().getParcelableExtra(ContactListActivity.CONTACT); 
 		
 		// Make all fields will no 
 		changeFieldVisibility(contact, TextView.GONE, TextView.VISIBLE);
@@ -81,6 +83,8 @@ public class ContactViewActivity extends Activity {
 		} else {
 			((TextView) findViewById(R.id.contact_notes)).setVisibility(fullVis);
 		}
+		
+		
 	}
 	
 	/**
@@ -101,6 +105,11 @@ public class ContactViewActivity extends Activity {
 		((TextView) findViewById(R.id.contact_email)).setText(contact.getEmailAddress());
 		((TextView) findViewById(R.id.contact_address)).setText(contact.getAddress());
 		((TextView) findViewById(R.id.contact_notes)).setText(contact.getNotes());
+		
+		// Only change image if image is not null
+		if (contact.getImage() != null) {
+			((ImageView) findViewById(R.id.contact_image)).setImageBitmap(contact.getImage());
+		}
 	}
 	
 	@Override
@@ -118,6 +127,8 @@ public class ContactViewActivity extends Activity {
 				contact.setEmailAddress((String) data.getCharSequenceExtra(getString(R.string.email_address_prompt)));
 				contact.setAddress((String) data.getCharSequenceExtra(getString(R.string.address_prompt)));
 				contact.setNotes((String) data.getCharSequenceExtra(getString(R.string.notes_prompt)));
+				contact.setImage((Bitmap) data.getParcelableExtra(getString(R.string.image_prompt)));
+				Log.d("Image", ((Bitmap) data.getParcelableExtra(getString(R.string.image_prompt))).toString());
 				
 				changeFieldVisibility(contact, TextView.GONE, TextView.VISIBLE);
 				

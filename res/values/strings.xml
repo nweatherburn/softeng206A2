@@ -31,5 +31,6 @@
     <string name="reverse_option">Reverse?</string>
     <string name="edit_contact">Edit</string>
     <string name="tap_to_change">Tap to change</string>
+    <string name="image_prompt">image</string>
 
 </resources>
