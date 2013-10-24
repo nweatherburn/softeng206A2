@@ -39,7 +39,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:paddingLeft="8dp"
-            android:scaleType="center"
+            android:scaleType="fitXY"
             android:src="@drawable/default_contact_photo" />
         
     </RelativeLayout>

@@ -1,5 +1,8 @@
 package nwea171.softeng206.contactsapp;
 
+import java.io.File;
+import java.io.IOException;
+
 import nwea171.softeng206.contacts.R;
 import nwea171.softeng206.contactsapp.contacts.Contact;
 import android.app.ActionBar;
@@ -8,8 +11,11 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.View;
@@ -68,6 +74,17 @@ public class NewContactActivity extends Activity {
 					private void getPhotoFromGallery() {
 						Intent choosePhotoIntent = new Intent(Intent.ACTION_PICK);
 						choosePhotoIntent.setType("image/*");
+						choosePhotoIntent.putExtra("crop", "true");
+						
+						// Set dimensions of photo
+						choosePhotoIntent.putExtra("outputX", 96);
+						choosePhotoIntent.putExtra("outputY", 96);
+						choosePhotoIntent.putExtra("aspectX",  1);
+						choosePhotoIntent.putExtra("aspectY",  1);
+						
+						choosePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(getTemporaryFile()));
+						choosePhotoIntent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+						
 						startActivityForResult(choosePhotoIntent, GET_PHOTO_FROM_GALLERY);
 					}
 				});
@@ -95,6 +112,26 @@ public class NewContactActivity extends Activity {
 				finish();
 			}
 		});
+	}
+	
+	/**
+	 * Code adapted (taken) from stackoverflow
+	 * User: http://stackoverflow.com/users/548218/jennifer
+	 * http://stackoverflow.com/questions/2085003/how-to-select-and-crop-an-image-in-android
+	 * @return
+	 */
+	private File getTemporaryFile() {
+		if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+	        File file = new File(Environment.getExternalStorageDirectory(), "TEMP_FILE.jpg");
+	        try {
+	            file.createNewFile();
+	        } catch (IOException e) {
+	        	
+	        }
+	        return file;
+	    } else {
+	        return null;
+	    }
 	}
 	
 	/**
@@ -178,9 +215,15 @@ public class NewContactActivity extends Activity {
 				Bitmap image = (Bitmap) extras.get("data");
 				imageButton.setImageBitmap(image);
 			}
-		} /*else if (requestCode == GET_PHOTO_FROM_GALLERY) {
-			if (resultCode == RESULT_OK) {
-				try {
+		} else if (requestCode == GET_PHOTO_FROM_GALLERY) {
+			if (resultCode == RESULT_OK && data != null) {
+				
+				String filePath= Environment.getExternalStorageDirectory() + "/TEMP_FILE.jpg";
+
+                imageButton.setImageBitmap(BitmapFactory.decodeFile(filePath));
+			}
+
+				/*try {
 					Uri chosenImage = data.getData();
 					InputStream imageStream = getContentResolver().openInputStream(chosenImage);
 					
@@ -193,8 +236,8 @@ public class NewContactActivity extends Activity {
 					// Shouldn't occur, error message just in case.
 					Toast.makeText(this, "Error Occurred: Could not load image", Toast.LENGTH_LONG).show();
 				} 
-			}
-		}*/
+			}*/
+		}
 	}
 
 	@Override
