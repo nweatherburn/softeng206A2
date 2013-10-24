@@ -11,7 +11,6 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -130,7 +129,6 @@ public class NewContactActivity extends Activity {
 			((EditText) findViewById(R.id.contact_notes)).setText(contact.getNotes());
 		}
 		if (contact.getImage() != null) {
-			Log.d("Image", "" + contact.getImage());
 			imageButton.setImageBitmap(contact.getImage());
 		}
 	}

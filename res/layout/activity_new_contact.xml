@@ -118,7 +118,7 @@
 		    <EditText
 		        android:id="@+id/contact_notes"
 		        android:hint="@string/notes_prompt"
-		        android:inputType="textCapSentences"
+		        android:inputType="textMultiLine"
 		        android:background="@null"
 		        style="@style/contact_info"  />
 		
@@ -131,22 +131,22 @@
 
 	    <View
 	        android:layout_width="match_parent"
-	        android:layout_height="1dip"
+	        android:layout_height="1dp"
 	        android:layout_alignParentTop="true"
-	        android:layout_marginLeft="4dip"
-	        android:layout_marginRight="4dip"
+	        android:layout_marginLeft="4dp"
+	        android:layout_marginRight="4dp"
 	        android:color="@color/grey"
 	        android:background="?android:attr/dividerVertical" />
 
 	    <View
 	        android:id="@+id/ViewColorPickerHelper"
-	        android:layout_width="1dip"
+	        android:layout_width="1dp"
 	        android:layout_height="wrap_content"
 	        android:layout_alignParentBottom="true"
 	        android:layout_alignParentTop="true"
 	        android:layout_centerHorizontal="true"
-	        android:layout_marginBottom="4dip"
-	        android:layout_marginTop="4dip"
+	        android:layout_marginBottom="4dp"
+	        android:layout_marginTop="4dp"
 	        android:color="@color/grey"
 	        android:background="?android:attr/dividerVertical" />
 

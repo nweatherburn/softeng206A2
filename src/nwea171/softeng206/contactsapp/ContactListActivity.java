@@ -40,8 +40,9 @@ public class ContactListActivity extends Activity {
 	final static String SORT_ORDER = "Sort Order";
 	
 	// Code for creating or editing new contact on startActivityForResult
-	final int NEW_CONTACT_CODE = 0;
-	final int EDIT_CONTACT_CODE = 1;
+	final static int NEW_CONTACT_CODE = 0;
+	final static int EDIT_CONTACT_CODE = 1;
+	final static int DELETE_CONTACT_CODE = 2;
 	
 	
 	SwipeDismissList swipeList;  // SwipeList
@@ -106,7 +107,7 @@ public class ContactListActivity extends Activity {
 		
 		UndoMode mode = SwipeDismissList.UndoMode.SINGLE_UNDO;
 		swipeList = new SwipeDismissList(contactListView, callback, mode);
-		swipeList.setSwipeDirection(SwipeDirection.START);
+		swipeList.setSwipeDirection(SwipeDirection.START); // Can only swipe right to left 
 		
 		// Create the list view and adapter
 		setupListView();
@@ -148,7 +149,10 @@ public class ContactListActivity extends Activity {
 		return id;
 		
 	}
-
+	
+	/**
+	 * Loads the options menu
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -156,7 +160,10 @@ public class ContactListActivity extends Activity {
 		inflater.inflate(R.menu.contact_list, menu);
 		return super.onCreateOptionsMenu(menu);
 	}
-
+	
+	/**
+	 * Code if menu 
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle item selection
@@ -172,7 +179,6 @@ public class ContactListActivity extends Activity {
 			builder.setTitle(R.string.sort_dialog_title);
 			
 			builder.setSingleChoiceItems(R.array.sort_options_array, -1, null);
-			//builder.setMultiChoiceItems(R.array.sort_reverse_option, null, null);
 			
 			// Set the confirm button
 			builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
@@ -180,9 +186,13 @@ public class ContactListActivity extends Activity {
 		           public void onClick(DialogInterface dialog, int id) {
 		        	   // Gets sort option and sorts contacts by selected order.
 		        	   ListView lv = ((AlertDialog) dialog).getListView();
+		        	   
+		        	   // If no items have been clicked, return
 		        	   if (lv.getCheckedItemCount() == 0) {
 		        		   return;
 		        	   }
+		        	   
+		        	   // Get the selection of the user
 		        	   String selection = (String) lv.getAdapter().getItem(lv.getCheckedItemPosition());
 		               sort(contacts, selection);
 		               listAdapter.notifyDataSetChanged();
@@ -226,6 +236,14 @@ public class ContactListActivity extends Activity {
 				contact.setImage((Bitmap) data.getParcelableExtra(getString(R.string.image_prompt)));
 				
 				contacts.add(contact); // Add the contact to the list of Contacts
+				
+				//final Contact finalContact = contact;
+				//new Thread() {
+				//	public void run() {
+				//		dbHandler.addContact(finalContact);
+				//	}
+				//}.start();
+				
 				dbHandler.addContact(contact); // Add the contact to the database
 				sort(contacts); // Sort the contacts list
 				listAdapter.notifyDataSetChanged(); // Notify the listadapter that the dataset has changed
@@ -242,6 +260,14 @@ public class ContactListActivity extends Activity {
 				sort(contacts);
 				listAdapter.notifyDataSetChanged();
 				
+			} else if (resultCode == DELETE_CONTACT_CODE) {
+				Contact newContact = (Contact) data.getParcelableExtra(CONTACT);
+				
+				
+				dbHandler.deleteContact(newContact);
+				contacts.remove(getIndexOfContactWithID(newContact.getID()));
+				sort(contacts);
+				listAdapter.notifyDataSetChanged();
 			}
 		}
 	}

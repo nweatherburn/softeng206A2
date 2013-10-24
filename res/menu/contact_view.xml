@@ -2,8 +2,14 @@
 
     <item
         android:id="@+id/edit_contact"
-        android:orderInCategory="100"
-        android:showAsAction="always"
+        android:orderInCategory="50"
+        android:showAsAction="never"
         android:title="@string/edit_contact"/>
+    
+    <item 
+        android:id="@+id/delete_contact"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/delete_contact"/>
 
 </menu>

@@ -4,10 +4,11 @@ import nwea171.softeng206.contacts.R;
 import nwea171.softeng206.contactsapp.contacts.Contact;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -122,6 +123,8 @@ public class ContactViewActivity extends Activity {
 		switch (requestCode) {
 		case EDIT_CONTACT_CODE:
 			if (resultCode == RESULT_OK) {
+				
+				// Load the edited values into the contact
 				contact.setFirstName((String) data.getCharSequenceExtra(getString(R.string.first_name_prompt)));
 				contact.setSurname((String) data.getCharSequenceExtra(getString(R.string.surname_prompt)));
 				contact.setMobileNumber((String) data.getCharSequenceExtra(getString(R.string.mobile_number_prompt)));
@@ -132,7 +135,6 @@ public class ContactViewActivity extends Activity {
 				contact.setAddress((String) data.getCharSequenceExtra(getString(R.string.address_prompt)));
 				contact.setNotes((String) data.getCharSequenceExtra(getString(R.string.notes_prompt)));
 				contact.setImage((Bitmap) data.getParcelableExtra(getString(R.string.image_prompt)));
-				Log.d("Image", ((Bitmap) data.getParcelableExtra(getString(R.string.image_prompt))).toString());
 				
 				changeFieldVisibility(contact, TextView.GONE, TextView.VISIBLE);
 				
@@ -151,7 +153,35 @@ public class ContactViewActivity extends Activity {
 			intent.setClass(ContactViewActivity.this, NewContactActivity.class);
 			startActivityForResult(intent, EDIT_CONTACT_CODE);
 			break; // Break switch statement.
-		}
+		case R.id.delete_contact:
+			AlertDialog.Builder builder = new AlertDialog.Builder(ContactViewActivity.this);
+			
+			// Create the title for the dialog
+			String title = "Are you sure you wish to delete";
+			if (contact.getFirstName() != null) {
+				title += " " + contact.getFirstName();
+			}
+			if (contact.getSurname() != null) {
+				title += " " + contact.getSurname();
+			}
+			if (contact.getFirstName() == null && contact.getSurname() == null) {
+				title += " this contact";
+			}
+			title += "?";
+			
+			
+			builder.setTitle(title);
+			builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+				   
+		           public void onClick(DialogInterface dialog, int id) {
+		        	   finish(ContactListActivity.DELETE_CONTACT_CODE);
+		           }
+			});
+			
+			builder.setNegativeButton(R.string.cancel, null);
+			builder.show();
+			
+		} 
 		return true;
 	}
 
@@ -162,12 +192,20 @@ public class ContactViewActivity extends Activity {
 		return true;
 	}
 	
-	
+	// Default finish
 	@Override
 	public void finish() {
 		Intent i = new Intent();
 		i.putExtra(ContactListActivity.CONTACT, contact);
 		setResult(RESULT_OK, i);
+		super.finish();
+	}
+	
+	// Finish with a custom result
+	public void finish(int result) {
+		Intent i = new Intent();
+		i.putExtra(ContactListActivity.CONTACT, contact);
+		setResult(result, i);
 		super.finish();
 	}
 
