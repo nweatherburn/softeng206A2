@@ -16,6 +16,12 @@ import android.widget.TextView;
 
 public class ContactViewActivity extends Activity {
 	
+	/**
+	 * Activity to edit contact
+	 * 
+	 * @author nwea171
+	 */
+	
 	// Code for editing contact on startActivityForResult
 	private final int EDIT_CONTACT_CODE = 0;
 	

@@ -32,6 +32,13 @@ import android.widget.TextView;
 
 public class ContactListActivity extends Activity {
 	
+	/**
+	 * Main activity.
+	 * Shows a list of contacts
+	 * 
+	 * @author nwea171
+	 */
+	
 	public static final String CONTACT = "Contact";
 	
 	// Details for shared preferences

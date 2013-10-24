@@ -25,13 +25,20 @@ import android.widget.ImageButton;
 
 public class NewContactActivity extends Activity {
 	
+	/**
+	 * Class to be used to edit or create a new contact.
+	 * This Activity returns a contact when closed.
+	 * 
+	 * @author nwea171
+	 */
+	
 	protected static final int TAKE_PHOTO = 0;
 	protected static final int GET_PHOTO_FROM_GALLERY = 1;
 	
 	
-	Button cancelButton, saveContactButton;
-	ImageButton imageButton;
-	Contact contact;
+	Button cancelButton, saveContactButton; // Buttons to save and cancel contact add
+	ImageButton imageButton;  // Contact image
+	Contact contact; // Contact of this class
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +60,7 @@ public class NewContactActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
+				// Creates a dialog to choose from 
 				AlertDialog.Builder builder = new AlertDialog.Builder(NewContactActivity.this);
 				builder.setTitle(R.string.add_contact_image_dialog_title);
 				builder.setItems(R.array.add_photo_options, new DialogInterface.OnClickListener() {
@@ -95,6 +103,8 @@ public class NewContactActivity extends Activity {
 		});
 
 		// Add listeners to the buttons
+		
+		// Button to cancel add
 		cancelButton = (Button) findViewById(R.id.cancel_add_contact);
 		cancelButton.setOnClickListener(new View.OnClickListener() {
 
@@ -105,6 +115,7 @@ public class NewContactActivity extends Activity {
 			}
 		});
 		
+		// Save the contact
 		saveContactButton = (Button) findViewById(R.id.save_contact);
 		saveContactButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -121,6 +132,7 @@ public class NewContactActivity extends Activity {
 	 * @return
 	 */
 	private File getTemporaryFile() {
+		// Creates a temporary file to store the image
 		if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
 	        File file = new File(Environment.getExternalStorageDirectory(), "TEMP_FILE.jpg");
 	        try {
@@ -138,6 +150,8 @@ public class NewContactActivity extends Activity {
 	 * Load the values of the given contact into the edit text fields
 	 */
 	private void loadValues(Contact contact) {
+		// Only adds the text to the text field if the image is not null.
+		
 		if (contact.getFirstName() != null) {
 			((EditText) findViewById(R.id.contact_first_name)).setText(contact.getFirstName());
 		}
@@ -206,6 +220,9 @@ public class NewContactActivity extends Activity {
 		
 	}
 	
+	/**
+	 * Gets image from result
+	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == TAKE_PHOTO) {
@@ -217,29 +234,19 @@ public class NewContactActivity extends Activity {
 			}
 		} else if (requestCode == GET_PHOTO_FROM_GALLERY) {
 			if (resultCode == RESULT_OK && data != null) {
+				// If the result it OK and the data returned is not null
+				// Get the file from the temporary image.
 				
 				String filePath= Environment.getExternalStorageDirectory() + "/TEMP_FILE.jpg";
 
                 imageButton.setImageBitmap(BitmapFactory.decodeFile(filePath));
 			}
-
-				/*try {
-					Uri chosenImage = data.getData();
-					InputStream imageStream = getContentResolver().openInputStream(chosenImage);
-					
-					Bitmap bitmap = BitmapFactory.decodeStream(imageStream);
-					bitmap = Bitmap.createScaledBitmap(bitmap, 480, 480, false);
-					
-					imageStream.close();
-					imageButton.setImageBitmap(bitmap);
-				} catch (IOException e) {
-					// Shouldn't occur, error message just in case.
-					Toast.makeText(this, "Error Occurred: Could not load image", Toast.LENGTH_LONG).show();
-				} 
-			}*/
 		}
 	}
 
+	/**
+	 * Creates the options menu
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

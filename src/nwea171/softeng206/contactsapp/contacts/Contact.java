@@ -9,11 +9,14 @@ public class Contact implements Parcelable {
 	/**
 	 * Class to represent a single contact.
 	 * 
+	 * All fields are null if not in use.
+	 * 
 	 * @author Nicholas Weatherburn
 	 */
 	
-	private int id;
-	private String firstName;
+	
+	private int id;				// Unique ID of the contact, to be used as the primary key in the database
+	private String firstName;	
 	private String surname;
 	private String dateOfBirth;
 	private String mobileNumber;
@@ -22,7 +25,7 @@ public class Contact implements Parcelable {
 	private String emailAddress;
 	private String address;
 	private String notes;
-	private Bitmap image;
+	private Bitmap image;		// Bitmap of the contact
 	
 	/**
 	 * Contact constructor not to be used except by the ContactBuilder.
@@ -51,6 +54,10 @@ public class Contact implements Parcelable {
 		this.image = null;
 	}
 	
+	/**
+	 * Recreates a Contact object from a parcel
+	 * @param in
+	 */
 	public Contact(Parcel in) {
 		id = in.readInt();
 		firstName = in.readString();
@@ -65,12 +72,17 @@ public class Contact implements Parcelable {
 		image = in.readParcelable(Bitmap.class.getClassLoader());
 	}
 	
+	/**
+	 * Not necessary
+	 */
 	@Override
 	public int describeContents() {
 		return 0;
 	}
 
-
+	/**
+	 * Writes all of this contacts fields to the destination parcel
+	 */
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
 		dest.writeInt(id);
@@ -86,6 +98,9 @@ public class Contact implements Parcelable {
 		dest.writeParcelable(image, 0);
 	}
 	
+	/**
+	 * Used to create a Contact from a given parcel
+	 */
 	public static final Parcelable.Creator<Contact> CREATOR = new Parcelable.Creator<Contact>() {  
 	    
         public Contact createFromParcel(Parcel in) {  

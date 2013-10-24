@@ -14,6 +14,12 @@ import android.graphics.BitmapFactory;
 
 public class ContactsDatabaseHandler extends SQLiteOpenHelper {
 	
+	/**
+	 * Class used to save contacts to database.
+	 * 
+	 * @author nwea171
+	 */
+	
 	// Database Version
 	static final int DATABASE_VERSION = 1;
 	
