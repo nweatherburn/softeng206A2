@@ -63,8 +63,10 @@ public class ContactListActivity extends Activity {
 		
 		// Creates the database
 		dbHandler = new ContactsDatabaseHandler(ContactListActivity.this);
-
+		
 		contactListView = (ListView) findViewById(R.id.contact_listview);
+		
+		// Adds the swipe to dismiss ability for the listAdapter
 		SwipeDismissList.OnDismissCallback callback = new SwipeDismissList.OnDismissCallback() {
 		    public Undoable onDismiss(AbsListView listView, final int position) {
 		        // Delete the item from your adapter (sample code):
@@ -97,9 +99,19 @@ public class ContactListActivity extends Activity {
 		        		undoMessage += "deleted.";
 		        		return undoMessage;
 		        	}
+		        	
+		        	/**
+		        	 * This method is called when the undo popup closes. 
+		        	 * This confirms the delete and removes the object from the backing database.
+		        	 */
 		        	@Override
 		        	public void discard() {
-		        		dbHandler.deleteContact(itemToDelete);
+		        		new Thread() {
+							public void run() {
+								// Deletes the contact in a new thread
+								dbHandler.deleteContact(itemToDelete);
+							}
+						}.start();
 		        	}
 		        };
 		    }
@@ -112,8 +124,10 @@ public class ContactListActivity extends Activity {
 		// Create the list view and adapter
 		setupListView();
 	}
-
-	// Instantiates the values in the list view.
+	
+	/**
+	 * Instantiates the list view values and onClickListener
+	 */
 	private void setupListView() {
 		contacts = dbHandler.getAllContacts();
 		sort(contacts); // Sorts the contacts
@@ -221,6 +235,7 @@ public class ContactListActivity extends Activity {
 		// Check which event this is responding to.
 		switch (requestCode) {
 		case NEW_CONTACT_CODE:
+			// If a new contact has been created
 			if (resultCode == RESULT_OK) {
 				Contact contact = new Contact(
 						getNextUniqueID(),
@@ -237,34 +252,50 @@ public class ContactListActivity extends Activity {
 				
 				contacts.add(contact); // Add the contact to the list of Contacts
 				
-				//final Contact finalContact = contact;
-				//new Thread() {
-				//	public void run() {
-				//		dbHandler.addContact(finalContact);
-				//	}
-				//}.start();
+				final Contact finalContact = contact;
+				// Adds the contact to the database in a new thread.
+				new Thread() {
+					public void run() {
+						dbHandler.addContact(finalContact);
+					}
+				}.start();
 				
-				dbHandler.addContact(contact); // Add the contact to the database
 				sort(contacts); // Sort the contacts list
 				listAdapter.notifyDataSetChanged(); // Notify the listadapter that the dataset has changed
 			}
 			break;
 		case EDIT_CONTACT_CODE:
+			// If a contact has been edited
 			if (resultCode == RESULT_OK) {
+				// If the contact has been edited and returned
 				Contact newContact = (Contact) data.getParcelableExtra(CONTACT);
 				
-				
-				dbHandler.updateContact(newContact);
 				contacts.remove(getIndexOfContactWithID(newContact.getID()));
 				contacts.add(newContact);
+				
+				final Contact finalContact = newContact;
+				// Adds the contact to the database in a new thread.
+				new Thread() {
+					public void run() {
+						dbHandler.updateContact(finalContact);
+					}
+				}.start();
+				
 				sort(contacts);
 				listAdapter.notifyDataSetChanged();
 				
 			} else if (resultCode == DELETE_CONTACT_CODE) {
+				// If the contact has been deleted in the View Contact
 				Contact newContact = (Contact) data.getParcelableExtra(CONTACT);
 				
+				final Contact finalContact = newContact;
+				// Deletes the contact from the database in a new thread.
+				new Thread() {
+					public void run() {
+						dbHandler.deleteContact(finalContact);
+					}
+				}.start();
 				
-				dbHandler.deleteContact(newContact);
 				contacts.remove(getIndexOfContactWithID(newContact.getID()));
 				sort(contacts);
 				listAdapter.notifyDataSetChanged();
@@ -315,16 +346,6 @@ public class ContactListActivity extends Activity {
         SharedPreferences.Editor editor = getSharedPreferences(PREFERENCES_NAME, 0).edit();
         editor.putString(SORT_ORDER, order);
         editor.apply();
-	}
-	
-	@Override
-	public void onPause() {
-		super.onPause();
-		
-		// Update database of any changes
-		for (Contact contact: contacts) {
-			dbHandler.updateContact(contact);
-		}
 	}
 	
 	@Override
