@@ -2,6 +2,7 @@ package nwea171.softeng206.contactsapp;
 
 import nwea171.softeng206.contacts.R;
 import nwea171.softeng206.contactsapp.contacts.Contact;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -9,7 +10,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,6 +24,10 @@ public class ContactViewActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_contact_view);
+		
+		// Set the name of the activity in the action bar.
+		ActionBar actionBar = getActionBar();
+		actionBar.setTitle(R.string.contact_list_title);
 		
 		// Add contact information to Views;
 		contact = (Contact) getIntent().getParcelableExtra(ContactListActivity.CONTACT); 

@@ -9,6 +9,7 @@ import de.timroes.swipetodismiss.SwipeDismissList.UndoMode;
 import de.timroes.swipetodismiss.SwipeDismissList.Undoable;
 
 import android.os.Bundle;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -16,7 +17,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -56,6 +56,11 @@ public class ContactListActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_contact_list);
 		
+		// Set the name of the activity in the action bar.
+		ActionBar actionBar = getActionBar();
+		actionBar.setTitle(R.string.contact_list_title);
+		
+		// Creates the database
 		dbHandler = new ContactsDatabaseHandler(ContactListActivity.this);
 
 		contactListView = (ListView) findViewById(R.id.contact_listview);

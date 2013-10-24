@@ -2,6 +2,7 @@ package nwea171.softeng206.contactsapp;
 
 import nwea171.softeng206.contacts.R;
 import nwea171.softeng206.contactsapp.contacts.Contact;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -31,6 +32,10 @@ public class NewContactActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_new_contact);
+		
+		// Set the name of the activity in the action bar.
+		ActionBar actionBar = getActionBar();
+		actionBar.setTitle(R.string.contact_list_title);
 		
 		// Find the imageButton
 		imageButton = (ImageButton) findViewById(R.id.contact_image_button);
@@ -173,9 +178,7 @@ public class NewContactActivity extends Activity {
 				// Photo has been taken
 				Bundle extras = data.getExtras();
 				Bitmap image = (Bitmap) extras.get("data");
-				
-				
-				imageButton.setImageBitmap((Bitmap) extras.get("data"));
+				imageButton.setImageBitmap(image);
 			}
 		} /*else if (requestCode == GET_PHOTO_FROM_GALLERY) {
 			if (resultCode == RESULT_OK) {

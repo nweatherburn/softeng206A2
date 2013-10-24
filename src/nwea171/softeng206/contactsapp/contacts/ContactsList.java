@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-import android.util.Log;
-
 
 @SuppressWarnings("serial")
 public class ContactsList extends ArrayList<Contact>{
